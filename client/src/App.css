@@ -17,48 +17,57 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background: radial-gradient(circle at top, #1f2937 0, #030712 55%, #000 100%);
+    color: #f9fafb;
 }
 
 .navbar {
-    background-color: #2c3e50;
+    background: rgba(15, 23, 42, 0.96);
+    backdrop-filter: blur(16px);
     color: white;
-    padding: 1rem 2rem;
+    padding: 1rem 2.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.7);
+    position: sticky;
+    top: 0;
+    z-index: 20;
 }
 
 .navbar h1 {
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 0.03em;
 }
 
 .nav-links {
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
+    align-items: center;
 }
 
 .nav-link {
     background: transparent;
-    border: 1px solid white;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
+    border: 1px solid rgba(148, 163, 184, 0.8);
+    color: #e5e7eb;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
     cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.3s;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
 }
 
 .nav-link:hover {
-    background: white;
-    color: #2c3e50;
+    background: #e5e7eb;
+    color: #020617;
+    border-color: transparent;
 }
 
 .main-content {
     flex: 1;
-    padding: 2rem;
-    max-width: 1200px;
+    padding: 2rem 1.5rem 3rem;
+    max-width: 1100px;
     width: 100%;
     margin: 0 auto;
 }
@@ -110,82 +119,116 @@ body {
 
 /* Poll List */
 .poll-list h1 {
-    color: #2c3e50;
-    margin-bottom: 2rem;
+    color: #e5e7eb;
+    margin-bottom: 0.25rem;
+    font-size: 2.1rem;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1.75rem;
+}
+
+.subtitle {
+    color: #9ca3af;
+    font-size: 0.95rem;
 }
 
 .btn-primary {
-    background-color: #3498db;
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
     color: white;
-    padding: 0.75rem 1.5rem;
+    padding: 0.65rem 1.4rem;
     border: none;
-    border-radius: 4px;
-    font-size: 1rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
     cursor: pointer;
-    margin-bottom: 2rem;
-    transition: background-color 0.3s;
+    box-shadow: 0 14px 30px rgba(79, 70, 229, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
 }
 
 .btn-primary:hover {
-    background-color: #2980b9;
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+    box-shadow: 0 18px 40px rgba(79, 70, 229, 0.45);
 }
 
 .polls-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 1.5rem;
 }
 
+.card-elevated {
+    background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.12), rgba(15, 23, 42, 0.96));
+    border-radius: 20px;
+    box-shadow: 0 22px 45px rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
 .poll-card {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 1.4rem 1.35rem;
+    text-align: left;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    color: #e5e7eb;
+    border-radius: 18px;
+    border: 1px solid transparent;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease,
+        background 0.18s ease;
+}
+
+.poll-card h3 {
+    color: #f9fafb;
+    margin-bottom: 0.4rem;
+    font-size: 1.05rem;
 }
 
 .poll-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-.poll-card h3 {
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
+    border-color: rgba(129, 140, 248, 0.6);
+    box-shadow: 0 25px 50px rgba(15, 23, 42, 0.9);
 }
 
 .poll-meta {
-    color: #7f8c8d;
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
+    color: #9ca3af;
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
 }
 
 .poll-options-preview {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.4rem;
 }
 
 .option-preview {
-    padding: 0.5rem;
-    background-color: #ecf0f1;
-    border-radius: 4px;
-    font-size: 0.9rem;
+    padding: 0.4rem 0.6rem;
+    background: rgba(15, 23, 42, 0.85);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    color: #e5e7eb;
+}
+
+.more-options {
+    margin-top: 0.3rem;
+    font-size: 0.75rem;
+    color: #9ca3af;
 }
 
 /* Create Poll */
 .create-poll {
-    max-width: 600px;
+    max-width: 640px;
     margin: 0 auto;
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 2rem 2.25rem;
 }
 
 .create-poll h2 {
-    color: #2c3e50;
+    color: #f9fafb;
+    margin-bottom: 0.25rem;
+}
+
+.create-poll .subtitle {
     margin-bottom: 1.5rem;
 }
 
@@ -202,10 +245,16 @@ body {
 
 .form-group input {
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
+    padding: 0.7rem 0.8rem;
+    border: 1px solid rgba(148, 163, 184, 0.6);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    background: rgba(15, 23, 42, 0.8);
+    color: #e5e7eb;
+}
+
+.form-group input::placeholder {
+    color: #6b7280;
 }
 
 .option-input-group {
@@ -219,22 +268,24 @@ body {
 }
 
 .btn-remove {
-    background-color: #e74c3c;
+    background-color: #ef4444;
     color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
 }
 
-.btn-add {
-    background-color: #27ae60;
-    color: white;
+.btn-add,
+.btn-ghost {
+    background: transparent;
+    color: #a5b4fc;
     border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
+    padding: 0.35rem 0;
     cursor: pointer;
-    margin-top: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.btn-icon {
+    border-radius: 999px;
+    padding: 0.35rem 0.7rem;
+    border: none;
 }
 
 .form-actions {
@@ -243,11 +294,11 @@ body {
 }
 
 .btn-secondary {
-    background-color: #95a5a6;
-    color: white;
+    background-color: rgba(148, 163, 184, 0.2);
+    color: #e5e7eb;
     padding: 0.75rem 1.5rem;
     border: none;
-    border-radius: 4px;
+    border-radius: 999px;
     font-size: 1rem;
     cursor: pointer;
 }
