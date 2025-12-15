@@ -27,15 +27,17 @@ const PollDetail = () => {
     };
 
     const handleVote = async (optionIndex) => {
-        if (!localStorage.getItem('token')) {
+        const voterId = getUserId();
+        if (!voterId) {
             alert('Please login to vote');
             return;
         }
 
         setVoting(true);
         try {
-            const response = await pollsAPI.vote(id, optionIndex);
-            setPoll(response.data);
+            const response = await pollsAPI.vote(id, voterId, [optionIndex]);
+            // backend returns { poll, vote }
+            setPoll(response.data.poll);
         } catch (err) {
             alert(err.response?.data?.message || 'Failed to vote');
         } finally {
@@ -55,22 +57,25 @@ const PollDetail = () => {
     };
 
     const userId = getUserId();
-    const hasVoted = poll && userId && poll.voters.some(voter => {
-        const voterId = typeof voter === 'object' ? voter._id || voter.toString() : voter.toString();
-        return voterId === userId;
-    });
-
     const totalVotes = poll ? poll.options.reduce((sum, opt) => sum + opt.votes, 0) : 0;
+    const isExpired = poll?.expiresAt && new Date(poll.expiresAt) < new Date();
 
     if (loading) return <div className="loading">Loading poll...</div>;
     if (error || !poll) return <div className="error">{error || 'Poll not found'}</div>;
 
     return (
-        <div className="poll-detail">
-            <button onClick={() => navigate('/')} className="btn-back">← Back to Polls</button>
+        <div className="poll-detail card-elevated">
+            <button onClick={() => navigate('/')} className="btn-back">← Back to polls</button>
             <h1>{poll.question}</h1>
             <p className="poll-meta">
-                Created by {poll.createdBy?.email || 'Unknown'} • {totalVotes} total votes
+                {totalVotes} total vote{totalVotes !== 1 ? 's' : ''}
+                {poll.allowMultiple && ' • multiple choice'}
+                {poll.expiresAt && (
+                    <>
+                        {' • '}
+                        {isExpired ? 'Expired' : `Closes ${new Date(poll.expiresAt).toLocaleString()}`}
+                    </>
+                )}
             </p>
             <div className="poll-options">
                 {poll.options.map((option, index) => {
@@ -82,14 +87,14 @@ const PollDetail = () => {
                                 <span className="option-stats">{option.votes} votes ({percentage}%)</span>
                             </div>
                             <div className="progress-bar">
-                                <div 
-                                    className="progress-fill" 
+                                <div
+                                    className="progress-fill"
                                     style={{ width: `${percentage}%` }}
                                 ></div>
                             </div>
-                            {!hasVoted && !voting && (
-                                <button 
-                                    onClick={() => handleVote(index)} 
+                            {!voting && !isExpired && (
+                                <button
+                                    onClick={() => handleVote(index)}
                                     className="btn-vote"
                                 >
                                     Vote
@@ -99,9 +104,9 @@ const PollDetail = () => {
                     );
                 })}
             </div>
-            {hasVoted && <p className="voted-message">You have already voted on this poll</p>}
-            {poll.createdBy?._id === userId && (
-                <button onClick={handleDelete} className="btn-delete">Delete Poll</button>
+            {isExpired && <p className="voted-message">This poll has expired.</p>}
+            {poll.createdby === userId && (
+                <button onClick={handleDelete} className="btn-delete">Delete poll</button>
             )}
         </div>
     );
