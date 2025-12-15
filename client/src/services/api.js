@@ -24,12 +24,14 @@ export const authAPI = {
     login: (email, password) => api.post('/auth/login', { email, password })
 };
 
-// Polls API
+// Polls API (aligned with backend)
 export const pollsAPI = {
     getAll: () => api.get('/polls'),
     getOne: (id) => api.get(`/polls/${id}`),
-    create: (question, options) => api.post('/polls', { question, options }),
-    vote: (pollId, optionIndex) => api.post(`/polls/${pollId}/vote`, { optionIndex }),
+    getResults: (id) => api.get(`/polls/${id}/results`),
+    create: (payload) => api.post('/polls', payload),
+    vote: (pollId, voterId, optionIndexes) =>
+        api.post(`/polls/${pollId}/vote`, { voterId, optionIndexes }),
     delete: (pollId) => api.delete(`/polls/${pollId}`)
 };
 

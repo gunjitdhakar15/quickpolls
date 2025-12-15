@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 const CreatePoll = () => {
     const [question, setQuestion] = useState('');
     const [options, setOptions] = useState(['', '']);
+    const [allowMultiple, setAllowMultiple] = useState(false);
+    const [expiresAt, setExpiresAt] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -35,9 +37,16 @@ const CreatePoll = () => {
             return;
         }
 
+        const payload = {
+            question,
+            options: validOptions,
+            allowMultiple,
+            expiresAt: expiresAt || undefined
+        };
+
         setLoading(true);
         try {
-            const response = await pollsAPI.create(question, validOptions);
+            const response = await pollsAPI.create(payload);
             navigate(`/poll/${response.data._id}`);
         } catch (err) {
             setError(err.response?.data?.message || 'Failed to create poll');
@@ -47,8 +56,9 @@ const CreatePoll = () => {
     };
 
     return (
-        <div className="create-poll">
-            <h2>Create New Poll</h2>
+        <div className="create-poll card-elevated">
+            <h2>Create a new poll</h2>
+            <p className="subtitle">Ask a question and let people vote in real time.</p>
             {error && <div className="error">{error}</div>}
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
@@ -57,7 +67,7 @@ const CreatePoll = () => {
                         type="text"
                         value={question}
                         onChange={(e) => setQuestion(e.target.value)}
-                        placeholder="Enter your poll question"
+                        placeholder="What do you want to ask?"
                         required
                     />
                 </div>
@@ -76,20 +86,42 @@ const CreatePoll = () => {
                                 <button
                                     type="button"
                                     onClick={() => removeOption(index)}
-                                    className="btn-remove"
+                                    className="btn-icon btn-remove"
                                 >
-                                    Remove
+                                    ✕
                                 </button>
                             )}
                         </div>
                     ))}
-                    <button type="button" onClick={addOption} className="btn-add">
-                        Add Option
+                    <button type="button" onClick={addOption} className="btn-ghost">
+                        + Add another option
                     </button>
                 </div>
+
+                <div className="form-row">
+                    <div className="form-group checkbox-group">
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={allowMultiple}
+                                onChange={(e) => setAllowMultiple(e.target.checked)}
+                            />
+                            Allow multiple selections
+                        </label>
+                    </div>
+                    <div className="form-group">
+                        <label>Expires at (optional)</label>
+                        <input
+                            type="datetime-local"
+                            value={expiresAt}
+                            onChange={(e) => setExpiresAt(e.target.value)}
+                        />
+                    </div>
+                </div>
+
                 <div className="form-actions">
                     <button type="submit" disabled={loading} className="btn-primary">
-                        {loading ? 'Creating...' : 'Create Poll'}
+                        {loading ? 'Creating...' : 'Create poll'}
                     </button>
                     <button type="button" onClick={() => navigate('/')} className="btn-secondary">
                         Cancel

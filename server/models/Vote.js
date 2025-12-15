@@ -1,25 +1,25 @@
 import mongoose from "mongoose";
 
-const voteSchema =  new mongoose.Schema(
+const voteSchema = new mongoose.Schema(
     {
-        poll:{
-            type : mongoose.Schema.Types.ObjectId,
-            ref : "Poll",
+        poll: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Poll",
             required: true,
         },
-        voterId:{
+        voterId: {
             type: String,
-            required : true,
+            required: true,
         },
-        optionIndexes:{
+        optionIndexes: {
             type: [Number],
-            required : true,
-        }
+            required: true,
+        },
     },
-    {timestamps: true}
+    { timestamps: true }
 );
 
-// check
-voteSchema.index({poll: 1, voterId:1}, {unique: true});
+// enforce one vote per poll per voter
+voteSchema.index({ poll: 1, voterId: 1 }, { unique: true });
 
-export const vote = mongoose.model("Vote", voteSchema);
+export const Vote = mongoose.model("Vote", voteSchema);
