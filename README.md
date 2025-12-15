@@ -1,184 +1,93 @@
 # QuickPolls
 
-A full-stack polling application built with React and Node.js/Express. Users can create polls, vote on them, and view real-time results.
+A full‑stack polling app where users can register, create polls with multiple options, vote once per poll, and see results in a modern UI.
 
 ## Features
 
-- 🔐 User authentication (Register/Login)
-- 📊 Create polls with multiple options
-- ✅ Vote on polls (one vote per user)
-- 📈 View poll results with visual progress bars
-- 🗑️ Delete your own polls
-- 📱 Responsive design
+- 🔐 **Auth**: Email/password register & login with JWT‑protected poll actions  
+- 📊 **Polls**: Create polls with 2+ options, one vote per user, delete your own polls  
+- 📈 **Results**: View total votes and per‑option percentages on the poll detail page  
+- 🎨 **UI**: React SPA with React Router, Axios, and a dark, modern dashboard‑style layout  
 
 ## Tech Stack
 
-### Backend
-- Node.js & Express
-- MongoDB with Mongoose
-- JWT for authentication
-- bcryptjs for password hashing
-
-### Frontend
-- React 19
-- React Router for navigation
-- Axios for API calls
-- Modern CSS styling
+- **Backend**: Node.js, Express, MongoDB (Mongoose), JWT, bcryptjs  
+- **Frontend**: React, React Router, Axios, custom CSS (dark / glassmorphism style)  
 
 ## Project Structure
 
-```
+```text
 quickpolls/
 ├── server/
-│   ├── models/
-│   │   ├── User.js          # User model
-│   │   └── Poll.js           # Poll model
-│   ├── routes/
-│   │   ├── auth.js           # Authentication routes
-│   │   └── polls.js          # Poll routes
-│   ├── middleware/
-│   │   └── auth.js           # JWT authentication middleware
-│   └── server.js             # Express server setup
-├── client/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Login.js
-│   │   │   ├── Register.js
-│   │   │   ├── PollList.js
-│   │   │   ├── CreatePoll.js
-│   │   │   └── PollDetail.js
-│   │   ├── services/
-│   │   │   └── api.js        # API service
-│   │   ├── utils/
-│   │   │   └── auth.js       # Auth utilities
-│   │   └── App.js            # Main app component
-│   └── package.json
-└── README.md
+│   ├── models/        # User, Poll
+│   ├── routes/        # /api/auth, /api/polls
+│   ├── middleware/    # auth.js (JWT)
+│   └── server.js      # Express + Mongo connection
+└── client/
+    ├── src/
+    │   ├── components/  # Login, Register, PollList, CreatePoll, PollDetail
+    │   ├── services/    # api.js (Axios instance + APIs)
+    │   ├── utils/       # auth.js (JWT decode helpers)
+    │   └── App.js       # Routes and layout
+    └── package.json
 ```
 
 ## Setup Instructions
 
 ### Prerequisites
-- Node.js (v14 or higher)
-- MongoDB (local installation or MongoDB Atlas)
-- npm or yarn
+
+- Node.js (v16+ recommended)  
+- MongoDB (local or Atlas)  
+- npm or yarn  
 
 ### Backend Setup
 
-1. Navigate to the server directory:
 ```bash
 cd server
-```
-
-2. Install dependencies:
-```bash
 npm install
-```
 
-3. Create a `.env` file in the server directory:
-```env
+# server/.env
 PORT=5000
-MONGODB_URI=mongodb://localhost:27017/quickpolls
-JWT_SECRET=your_super_secret_jwt_key_change_this_in_production
+DB_URI=mongodb://localhost:27017/quickpolls
+JWT_SECRET=your_super_secret_jwt_key
+
+npm run dev   # or: npm start
 ```
 
-4. Start MongoDB (if running locally):
-```bash
-# On Windows
-mongod
-
-# On Mac/Linux
-sudo systemctl start mongod
-# or
-brew services start mongodb-community
-```
-
-5. Start the server:
-```bash
-# Development mode (with nodemon)
-npm run dev
-
-# Production mode
-npm start
-```
-
-The server will run on `http://localhost:5000`
+The API will be available at `http://localhost:5000/api`.
 
 ### Frontend Setup
 
-1. Navigate to the client directory:
 ```bash
 cd client
-```
-
-2. Install dependencies:
-```bash
 npm install
-```
 
-3. Create a `.env` file in the client directory (optional):
-```env
+# optional: client/.env
 REACT_APP_API_URL=http://localhost:5000/api
-```
 
-4. Start the development server:
-```bash
 npm start
 ```
 
-The client will run on `http://localhost:3000`
+The React app will run at `http://localhost:3000`.
 
-## API Endpoints
+## Core API Endpoints
 
 ### Authentication
-- `POST /api/auth/register` - Register a new user
-  - Body: `{ email, password }`
-- `POST /api/auth/login` - Login user
-  - Body: `{ email, password }`
-  - Returns: `{ token }`
 
-### Polls
-- `GET /api/polls` - Get all polls
-- `GET /api/polls/:id` - Get a single poll
-- `POST /api/polls` - Create a poll (requires auth)
-  - Body: `{ question, options: [string, string, ...] }`
-- `POST /api/polls/:id/vote` - Vote on a poll (requires auth)
-  - Body: `{ optionIndex: number }`
-- `DELETE /api/polls/:id` - Delete a poll (requires auth, creator only)
+- `POST /api/auth/register` – register, body: `{ email, password }`  
+- `POST /api/auth/login` – login, body: `{ email, password }`, returns `{ token }`  
 
-## Usage
+### Polls (JWT in `Authorization: Bearer <token>`)
 
-1. **Register/Login**: Create an account or login with existing credentials
-2. **View Polls**: Browse all available polls on the home page
-3. **Create Poll**: Click "Create New Poll" to create your own poll
-4. **Vote**: Click on a poll to view details and vote (one vote per user)
-5. **View Results**: See real-time vote counts and percentages
-6. **Delete**: Poll creators can delete their own polls
+- `GET /api/polls` – list polls  
+- `GET /api/polls/:id` – get a single poll  
+- `POST /api/polls` – create poll, body: `{ question, options: string[] }`  
+- `POST /api/polls/:id/vote` – vote, body: `{ optionIndex: number }`  
+- `DELETE /api/polls/:id` – delete poll (creator only)  
 
-## Environment Variables
+## Usage Flow
 
-### Server (.env)
-- `PORT` - Server port (default: 5000)
-- `MONGODB_URI` - MongoDB connection string
-- `JWT_SECRET` - Secret key for JWT tokens
-
-### Client (.env)
-- `REACT_APP_API_URL` - Backend API URL (default: http://localhost:5000/api)
-
-## Notes
-
-- Users must be authenticated to create polls and vote
-- Each user can only vote once per poll
-- Poll creators can delete their own polls
-- JWT tokens expire after 1 day
-
-## Future Enhancements
-
-- Real-time updates using WebSockets
-- Poll categories/tags
-- Search functionality
-- User profiles
-- Poll expiration dates
-- Share polls via link
-- Poll analytics
-
+1. Register and log in to get a JWT stored in `localStorage`.  
+2. From the home page, click **Create New Poll** and submit a question + options.  
+3. Open a poll detail page to vote once per poll as an authenticated user.  
+4. See live results with counts and percentages; delete the poll if you are the creator.  
