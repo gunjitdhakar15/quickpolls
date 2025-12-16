@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
 import Login from './components/Login';
 import Register from './components/Register';
 import PollList from './components/PollList';
 import CreatePoll from './components/CreatePoll';
 import PollDetail from './components/PollDetail';
+import Home from './components/Home';
+import Dashboard from './components/Dashboard';
 import './App.css';
 
 function App() {
@@ -12,7 +14,6 @@ function App() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Check if user is authenticated
         const token = localStorage.getItem('token');
         setIsAuthenticated(!!token);
         setLoading(false);
@@ -40,47 +41,76 @@ function App() {
                     <div className="nav-links">
                         {isAuthenticated ? (
                             <>
-                                <button onClick={() => window.location.href = '/'} className="nav-link">
-                                    Home
-                                </button>
+                                <Link to="/dashboard" className="nav-link">
+                                    Dashboard
+                                </Link>
                                 <button onClick={handleLogout} className="nav-link">
                                     Logout
                                 </button>
                             </>
                         ) : (
                             <>
-                                <button onClick={() => window.location.href = '/login'} className="nav-link">
+                                <Link to="/login" className="nav-link">
                                     Login
-                                </button>
-                                <button onClick={() => window.location.href = '/register'} className="nav-link">
+                                </Link>
+                                <Link to="/register" className="nav-link">
                                     Register
-                                </button>
+                                </Link>
                             </>
                         )}
                     </div>
                 </nav>
                 <main className="main-content">
                     <Routes>
-                        <Route path="/" element={<PollList />} />
-                        <Route 
-                            path="/login" 
+                        <Route
+                            path="/"
                             element={
-                                isAuthenticated ? <Navigate to="/" /> : <Login onLogin={handleLogin} />
-                            } 
+                                isAuthenticated ? <Navigate to="/dashboard" /> : <Home />
+                            }
                         />
-                        <Route 
-                            path="/register" 
+                        <Route
+                            path="/login"
                             element={
-                                isAuthenticated ? <Navigate to="/" /> : <Register onRegister={handleLogin} />
-                            } 
+                                isAuthenticated ? (
+                                    <Navigate to="/dashboard" />
+                                ) : (
+                                    <Login onLogin={handleLogin} />
+                                )
+                            }
                         />
-                        <Route 
-                            path="/create" 
+                        <Route
+                            path="/register"
                             element={
-                                isAuthenticated ? <CreatePoll /> : <Navigate to="/login" />
-                            } 
+                                isAuthenticated ? (
+                                    <Navigate to="/dashboard" />
+                                ) : (
+                                    <Register onRegister={handleLogin} />
+                                )
+                            }
+                        />
+                        <Route
+                            path="/dashboard"
+                            element={
+                                isAuthenticated ? (
+                                    <Dashboard />
+                                ) : (
+                                    <Navigate to="/login" />
+                                )
+                            }
+                        />
+                        <Route
+                            path="/create"
+                            element={
+                                isAuthenticated ? (
+                                    <CreatePoll />
+                                ) : (
+                                    <Navigate to="/login" />
+                                )
+                            }
                         />
                         <Route path="/poll/:id" element={<PollDetail />} />
+                        {/* fallback: list polls (optional direct route) */}
+                        <Route path="/polls" element={<PollList />} />
                     </Routes>
                 </main>
             </div>

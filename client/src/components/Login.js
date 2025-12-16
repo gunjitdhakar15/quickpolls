@@ -24,31 +24,54 @@ const Login = ({ onLogin }) => {
     };
 
     return (
-        <div className="auth-container">
-            <h2>Login</h2>
-            {error && <div className="error">{error}</div>}
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <button type="submit" disabled={loading}>
-                    {loading ? 'Logging in...' : 'Login'}
-                </button>
-            </form>
+        <div className="auth-page">
+            <div className="auth-container">
+                <div className="auth-header">
+                    <h2>Welcome Back</h2>
+                    <p className="auth-subtitle">Sign in to continue to QuickPolls</p>
+                </div>
+                
+                {error && <div className="error">{error}</div>}
+                
+                <form onSubmit={handleSubmit}>
+                    <div className="input-group">
+                        <label htmlFor="email">Email Address</label>
+                        <input
+                            id="email"
+                            type="email"
+                            placeholder="you@example.com"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
+
+                    <div className="input-group">
+                        <label htmlFor="password">Password</label>
+                        <input
+                            id="password"
+                            type="password"
+                            placeholder="Enter your password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+
+                    <button type="submit" className="auth-button" disabled={loading}>
+                        {loading ? (
+                            <>
+                                <span className="spinner"></span>
+                                Logging in...
+                            </>
+                        ) : (
+                            'Login'
+                        )}
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };
 
 export default Login;
-
