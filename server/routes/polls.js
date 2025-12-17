@@ -6,7 +6,19 @@ const auth = require('../middleware/auth');
 // Get all polls
 router.get('/', async (req, res) => {
     try {
-        const polls = await Poll.find().populate('createdBy', 'email').sort({ createdAt: -1 });
+        const polls = await Poll.find().populate('createdBy', 'name email').sort({ createdAt: -1 }); // Added 'name'
+        res.json(polls);
+    } catch (err) {
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+// Get user's own polls (ADD THIS NEW ROUTE)
+router.get('/my-polls', auth, async (req, res) => {
+    try {
+        const polls = await Poll.find({ createdBy: req.user._id })
+            .populate('createdBy', 'name email')
+            .sort({ createdAt: -1 });
         res.json(polls);
     } catch (err) {
         res.status(500).json({ message: 'Server error' });
@@ -16,7 +28,7 @@ router.get('/', async (req, res) => {
 // Get single poll
 router.get('/:id', async (req, res) => {
     try {
-        const poll = await Poll.findById(req.params.id).populate('createdBy', 'email');
+        const poll = await Poll.findById(req.params.id).populate('createdBy', 'name email'); // Added 'name'
         if (!poll) {
             return res.status(404).json({ message: 'Poll not found' });
         }
@@ -42,7 +54,7 @@ router.post('/', auth, async (req, res) => {
         });
 
         await poll.save();
-        await poll.populate('createdBy', 'email');
+        await poll.populate('createdBy', 'name email'); // Added 'name'
         res.status(201).json(poll);
     } catch (err) {
         res.status(500).json({ message: 'Server error' });
@@ -72,7 +84,7 @@ router.post('/:id/vote', auth, async (req, res) => {
         poll.voters.push(req.user._id);
         await poll.save();
 
-        await poll.populate('createdBy', 'email');
+        await poll.populate('createdBy', 'name email'); // Added 'name'
         res.json(poll);
     } catch (err) {
         res.status(500).json({ message: 'Server error' });
@@ -100,4 +112,3 @@ router.delete('/:id', auth, async (req, res) => {
 });
 
 module.exports = router;
-
