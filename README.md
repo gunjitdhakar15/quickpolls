@@ -4,7 +4,7 @@
 
 > *Architecture: MERN Stack (MVC Pattern) | JWT Authentication | REST API Optimization*
 
-![QuickPolls UI](./screenshot.jpg)
+![QuickPolls UI](./screenshot.png)
 ### 🚀 Project Overview
 QuickPolls is a full-stack application designed to handle voting sessions with strict data integrity. Unlike simple CRUD apps, this engine implements **atomic voting logic** to ensure one-vote-per-user and uses **stateless session management** via JWT.
 
