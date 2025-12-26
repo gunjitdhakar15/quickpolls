@@ -1,4 +1,4 @@
-<img width="1886" height="864" alt="screenshot" src="https://github.com/user-attachments/assets/8a11454f-b081-4acd-8a7c-2d4452f9cb77" /># QuickPolls ⚡
+# QuickPolls ⚡
 
 **A scalable voting engine engineered for secure, high-integrity data collection.**
 
