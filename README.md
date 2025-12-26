@@ -1,10 +1,11 @@
-# QuickPolls ⚡
+<img width="1886" height="864" alt="screenshot" src="https://github.com/user-attachments/assets/8a11454f-b081-4acd-8a7c-2d4452f9cb77" /># QuickPolls ⚡
 
 **A scalable voting engine engineered for secure, high-integrity data collection.**
 
 > *Architecture: MERN Stack (MVC Pattern) | JWT Authentication | REST API Optimization*
 
-![QuickPolls UI](./screenshot.png)
+<img width="1886" height="864" alt="screenshot" src="https://github.com/user-attachments/assets/dbd31f56-ac6d-46ff-9701-3a0239e91131" />
+
 ### 🚀 Project Overview
 QuickPolls is a full-stack application designed to handle voting sessions with strict data integrity. Unlike simple CRUD apps, this engine implements **atomic voting logic** to ensure one-vote-per-user and uses **stateless session management** via JWT.
 
