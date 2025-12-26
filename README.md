@@ -1,93 +1,42 @@
-# QuickPolls
+# QuickPolls ⚡
 
-A full‑stack polling app where users can register, create polls with multiple options, vote once per poll, and see results in a modern UI.
+**A scalable voting engine engineered for secure, high-integrity data collection.**
 
-## Features
+> *Architecture: MERN Stack (MVC Pattern) | JWT Authentication | REST API Optimization*
 
-- 🔐 **Auth**: Email/password register & login with JWT‑protected poll actions  
-- 📊 **Polls**: Create polls with 2+ options, one vote per user, delete your own polls  
-- 📈 **Results**: View total votes and per‑option percentages on the poll detail page  
-- 🎨 **UI**: React SPA with React Router, Axios, and a dark, modern dashboard‑style layout  
+### 🚀 Project Overview
+QuickPolls is a full-stack application designed to handle voting sessions with strict data integrity. Unlike simple CRUD apps, this engine implements **atomic voting logic** to ensure one-vote-per-user and uses **stateless session management** via JWT.
 
-## Tech Stack
+The system was architected to separate concerns between the Client (React) and Server (Node/Express), ensuring scalable code maintenance.
 
-- **Backend**: Node.js, Express, MongoDB (Mongoose), JWT, bcryptjs  
-- **Frontend**: React, React Router, Axios, custom CSS (dark / glassmorphism style)  
+### 🛠️ Technical Architecture
+* **Backend:** Node.js & Express.js (MVC Architecture with separate Controllers/Routes).
+* **Database:** MongoDB (Mongoose) with schema validation for data consistency.
+* **Security:**
+    * **JWT (JSON Web Tokens):** Custom middleware (`middleware/auth.js`) for protected route access.
+    * **Bcrypt.js:** Cryptographic hashing for user credentials.
+    * **CORS Policy:** Configured for secure client-server communication.
+* **Frontend:** React.js (SPA) using `axios` services for centralized API handling.
 
-## Project Structure
+### 📂 Key Capabilities
+1.  **Secure Authentication Flow:** Complete Register/Login cycle returning Bearer tokens.
+2.  **Atomic Voting Transactions:** Backend logic ensures users cannot vote multiple times on the same poll ID.
+3.  **Modular Service Layer:** Frontend API calls are abstracted into `services/api.js` for cleaner components.
+4.  **Responsive Dashboard:** Component-based UI (`Dashboard.js`, `PollDetail.js`) for managing polls.
 
-```text
+### 🔧 Project Structure
+This project follows a Monorepo-style structure separating the API and Client logic.
+
+```bash
 quickpolls/
-├── server/
-│   ├── models/        # User, Poll
-│   ├── routes/        # /api/auth, /api/polls
-│   ├── middleware/    # auth.js (JWT)
-│   └── server.js      # Express + Mongo connection
-└── client/
+├── server/                 # Backend API Layer
+│   ├── controllers/        # Logic extraction (Poll/User logic)
+│   ├── middleware/         # auth.js (JWT Validation)
+│   ├── models/             # Mongoose Schemas (User.js, Poll.js)
+│   ├── routes/             # API Endpoints declaration
+│   └── server.js           # Express Entry Point
+└── client/                 # React Frontend
     ├── src/
-    │   ├── components/  # Login, Register, PollList, CreatePoll, PollDetail
-    │   ├── services/    # api.js (Axios instance + APIs)
-    │   ├── utils/       # auth.js (JWT decode helpers)
-    │   └── App.js       # Routes and layout
-    └── package.json
-```
-
-## Setup Instructions
-
-### Prerequisites
-
-- Node.js (v16+ recommended)  
-- MongoDB (local or Atlas)  
-- npm or yarn  
-
-### Backend Setup
-
-```bash
-cd server
-npm install
-
-# server/.env
-PORT=5000
-DB_URI=mongodb://localhost:27017/quickpolls
-JWT_SECRET=your_super_secret_jwt_key
-
-npm run dev   # or: npm start
-```
-
-The API will be available at `http://localhost:5000/api`.
-
-### Frontend Setup
-
-```bash
-cd client
-npm install
-
-# optional: client/.env
-REACT_APP_API_URL=http://localhost:5000/api
-
-npm start
-```
-
-The React app will run at `http://localhost:3000`.
-
-## Core API Endpoints
-
-### Authentication
-
-- `POST /api/auth/register` – register, body: `{ email, password }`  
-- `POST /api/auth/login` – login, body: `{ email, password }`, returns `{ token }`  
-
-### Polls (JWT in `Authorization: Bearer <token>`)
-
-- `GET /api/polls` – list polls  
-- `GET /api/polls/:id` – get a single poll  
-- `POST /api/polls` – create poll, body: `{ question, options: string[] }`  
-- `POST /api/polls/:id/vote` – vote, body: `{ optionIndex: number }`  
-- `DELETE /api/polls/:id` – delete poll (creator only)  
-
-## Usage Flow
-
-1. Register and log in to get a JWT stored in `localStorage`.  
-2. From the home page, click **Create New Poll** and submit a question + options.  
-3. Open a poll detail page to vote once per poll as an authenticated user.  
-4. See live results with counts and percentages; delete the poll if you are the creator.  
+    │   ├── components/     # UI Modules (PollList, Dashboard, etc.)
+    │   ├── services/       # api.js (Axios Instance)
+    │   └── utils/          # auth.js (Token Decoding)
