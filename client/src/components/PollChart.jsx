@@ -20,18 +20,18 @@ const PollChart = ({ options }) => {
         label: 'Votes',
         data: options.map(opt => opt.votes),
         backgroundColor: [
-          'rgba(0, 245, 160, 0.8)',   // Electric Emerald
-          'rgba(0, 210, 255, 0.8)',   // Cyber Cyan
-          'rgba(255, 184, 0, 0.8)',   // Cyber Amber
-          'rgba(168, 85, 247, 0.8)',  // Neon Purple
-          'rgba(244, 63, 94, 0.8)',   // Cyber Pink
+          'rgba(251, 113, 133, 0.85)', // Peach Pink
+          'rgba(244, 114, 182, 0.85)', // Rose Pink
+          'rgba(252, 165, 165, 0.85)', // Pastel Peach
+          'rgba(192, 132, 252, 0.85)', // Soft Purple
+          'rgba(245, 158, 11, 0.85)',  // Warm Gold
         ],
         borderColor: [
-          '#00F5A0',
-          '#00D2FF',
-          '#FFB800',
-          '#A855F7',
-          '#F43F5E',
+          '#fb7185',
+          '#f472b6',
+          '#fca5a5',
+          '#c084fc',
+          '#f59e0b',
         ],
         borderWidth: 1.5,
         borderRadius: 10,
@@ -48,14 +48,14 @@ const PollChart = ({ options }) => {
         display: false,
       },
       tooltip: {
-        backgroundColor: '#0a0b10',
-        titleColor: '#00F5A0',
+        backgroundColor: '#3b0764',
+        titleColor: '#fb7185',
         bodyColor: '#ffffff',
         padding: 12,
-        borderColor: 'rgba(0, 245, 160, 0.3)',
+        borderColor: 'rgba(255, 255, 255, 0.2)',
         borderWidth: 1,
-        titleFont: { family: 'monospace' },
-        bodyFont: { family: 'monospace' }
+        titleFont: { family: 'sans-serif', weight: 'bold' },
+        bodyFont: { family: 'sans-serif' }
       },
     },
     scales: {
@@ -64,22 +64,22 @@ const PollChart = ({ options }) => {
           display: false,
         },
         ticks: {
-          color: '#94a3b8',
+          color: '#f5d0fe',
           font: {
-            family: 'monospace',
-            weight: '500',
+            family: 'sans-serif',
+            weight: '600',
           },
         },
       },
       y: {
         grid: {
-          color: 'rgba(0, 245, 160, 0.05)',
+          color: 'rgba(255, 255, 255, 0.1)',
         },
         ticks: {
-          color: '#94a3b8',
+          color: '#f5d0fe',
           stepSize: 1,
           font: {
-            family: 'monospace',
+            family: 'sans-serif',
           },
         },
       },

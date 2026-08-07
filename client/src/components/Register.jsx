@@ -43,25 +43,25 @@ const Register = () => {
     <div className="flex justify-center items-center py-10 px-4">
       <div className="w-full max-w-md glass-panel p-8">
         <div className="flex flex-col items-center mb-6">
-          <div className="p-3 bg-indigo-600/10 text-indigo-400 rounded-2xl mb-3 border border-indigo-500/20">
+          <div className="p-3 bg-peach-gradient text-purple-950 rounded-2xl mb-3 shadow-peachGlow">
             <UserPlus className="h-6 w-6" />
           </div>
-          <h2 className="text-2xl font-bold text-white tracking-tight">Create QuickPolls Account</h2>
-          <p className="text-slate-400 text-xs mt-1">Get started with a free voter profile</p>
+          <h2 className="text-2xl font-black text-white tracking-tight">Create QuickPolls Account</h2>
+          <p className="text-purple-200/80 text-xs mt-1">Get started with a free voter profile</p>
         </div>
 
         {error && (
-          <div className="mb-5 p-3.5 bg-red-950/30 border border-red-500/30 text-red-300 rounded-xl flex items-center space-x-2.5 text-xs">
-            <AlertTriangle className="h-4 w-4 text-red-400 shrink-0" />
+          <div className="mb-5 p-3.5 bg-rose-950/40 border border-rose-400/40 text-rose-200 rounded-xl flex items-center space-x-2.5 text-xs">
+            <AlertTriangle className="h-4 w-4 text-rose-400 shrink-0" />
             <span>{error}</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Your Full Name</label>
+            <label className="block text-xs font-bold text-white mb-1.5">Your Full Name</label>
             <div className="relative flex items-center">
-              <User className="absolute left-3.5 h-4 w-4 text-slate-400 pointer-events-none" />
+              <User className="absolute left-3.5 h-4 w-4 text-peachPink pointer-events-none" />
               <input
                 type="text"
                 name="name"
@@ -75,9 +75,9 @@ const Register = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Email Address</label>
+            <label className="block text-xs font-bold text-white mb-1.5">Email Address</label>
             <div className="relative flex items-center">
-              <Mail className="absolute left-3.5 h-4 w-4 text-slate-400 pointer-events-none" />
+              <Mail className="absolute left-3.5 h-4 w-4 text-peachPink pointer-events-none" />
               <input
                 type="email"
                 name="email"
@@ -91,9 +91,9 @@ const Register = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Password</label>
+            <label className="block text-xs font-bold text-white mb-1.5">Password</label>
             <div className="relative flex items-center">
-              <Key className="absolute left-3.5 h-4 w-4 text-slate-400 pointer-events-none" />
+              <Key className="absolute left-3.5 h-4 w-4 text-peachPink pointer-events-none" />
               <input
                 type="password"
                 name="password"
@@ -112,13 +112,13 @@ const Register = () => {
             className="w-full glass-btn-primary mt-6 justify-center"
           >
             <span>{loading ? 'Creating Account...' : 'Sign Up'}</span>
-            {!loading && <ArrowRight className="h-4 w-4 ml-1" />}
+            {!loading && <ArrowRight className="h-4 w-4 ml-1 text-purple-950" />}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-xs text-slate-400">
+        <p className="mt-6 text-center text-xs text-purple-200/80">
           Already have an account?{' '}
-          <Link to="/login" className="text-indigo-400 font-semibold hover:text-indigo-300 transition-colors">
+          <Link to="/login" className="text-peachPink font-bold hover:text-white transition-colors">
             Login
           </Link>
         </p>
