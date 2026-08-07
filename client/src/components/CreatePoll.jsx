@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { pollsAPI } from '../services/api';
-import { Plus, Trash2, ArrowLeft, PlusCircle } from 'lucide-react';
+import { Plus, Trash2, ArrowLeft, PlusCircle, HelpCircle, ListPlus } from 'lucide-react';
 
 const CreatePoll = () => {
   const navigate = useNavigate();
@@ -63,7 +63,7 @@ const CreatePoll = () => {
       {/* Back link */}
       <button
         onClick={() => navigate('/')}
-        className="flex items-center space-x-1.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white mb-4 bg-transparent border-0 cursor-pointer text-xs font-semibold"
+        className="flex items-center space-x-1.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white mb-4 bg-transparent border-0 cursor-pointer text-xs font-semibold transition-colors"
       >
         <ArrowLeft className="h-4 w-4" />
         <span>Back to Polls</span>
@@ -82,40 +82,49 @@ const CreatePoll = () => {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Question */}
+          {/* Question Field */}
           <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Question</label>
-            <input
-              type="text"
-              placeholder="What would you like to ask?"
-              value={question}
-              onChange={(e) => {
-                setQuestion(e.target.value);
-                if (error) setError('');
-              }}
-              className="w-full clean-input"
-              required
-            />
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Poll Question</label>
+            <div className="relative flex items-center">
+              <HelpCircle className="absolute left-3.5 h-4 w-4 text-slate-400 pointer-events-none z-10" />
+              <input
+                type="text"
+                placeholder="What would you like to ask?"
+                value={question}
+                onChange={(e) => {
+                  setQuestion(e.target.value);
+                  if (error) setError('');
+                }}
+                className="w-full clean-input"
+                style={{ paddingLeft: '40px', paddingRight: '14px' }}
+                required
+              />
+            </div>
           </div>
 
-          {/* Options */}
+          {/* Options List */}
           <div className="space-y-2.5">
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">Options</label>
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">Poll Options</label>
             {options.map((option, index) => (
               <div key={index} className="flex items-center space-x-2">
-                <input
-                  type="text"
-                  placeholder={`Option ${index + 1}`}
-                  value={option}
-                  onChange={(e) => handleOptionChange(index, e.target.value)}
-                  className="w-full clean-input"
-                  required
-                />
+                <div className="relative flex items-center flex-grow">
+                  <ListPlus className="absolute left-3.5 h-4 w-4 text-slate-400 pointer-events-none z-10" />
+                  <input
+                    type="text"
+                    placeholder={`Option ${index + 1}`}
+                    value={option}
+                    onChange={(e) => handleOptionChange(index, e.target.value)}
+                    className="w-full clean-input"
+                    style={{ paddingLeft: '40px', paddingRight: '14px' }}
+                    required
+                  />
+                </div>
                 {options.length > 2 && (
                   <button
                     type="button"
                     onClick={() => removeOptionField(index)}
-                    className="p-2 bg-red-50 hover:bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800/60 rounded-lg transition-colors cursor-pointer"
+                    className="p-2 bg-red-50 hover:bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800/60 rounded-lg transition-colors cursor-pointer shrink-0"
+                    title="Remove option"
                   >
                     <Trash2 className="h-4 w-4" />
                   </button>
@@ -134,7 +143,7 @@ const CreatePoll = () => {
             <span>Add Option</span>
           </button>
 
-          {/* Submit */}
+          {/* Submit button */}
           <button
             type="submit"
             disabled={loading}

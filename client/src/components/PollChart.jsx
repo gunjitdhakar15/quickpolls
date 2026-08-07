@@ -1,17 +1,14 @@
 import React from 'react';
-import { Bar } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
+  ArcElement,
   Tooltip,
   Legend
 } from 'chart.js';
 import { useTheme } from '../context/ThemeContext';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const PollChart = ({ options }) => {
   const { theme } = useTheme();
@@ -24,13 +21,16 @@ const PollChart = ({ options }) => {
         label: 'Votes',
         data: options.map(opt => opt.votes),
         backgroundColor: [
-          isDark ? 'rgba(99, 102, 241, 0.85)' : 'rgba(79, 70, 229, 0.85)',
-          isDark ? 'rgba(14, 165, 233, 0.85)' : 'rgba(2, 132, 199, 0.85)',
-          isDark ? 'rgba(16, 185, 129, 0.85)' : 'rgba(5, 150, 105, 0.85)',
-          isDark ? 'rgba(245, 158, 11, 0.85)' : 'rgba(217, 119, 6, 0.85)',
+          isDark ? '#818cf8' : '#4f46e5', // Indigo
+          isDark ? '#38bdf8' : '#0284c7', // Cyan
+          isDark ? '#34d399' : '#059669', // Emerald
+          isDark ? '#fbbf24' : '#d97706', // Amber
+          isDark ? '#f472b6' : '#db2777', // Pink
+          isDark ? '#a78bfa' : '#7c3aed', // Purple
         ],
-        borderRadius: 6,
-        borderSkipped: false,
+        borderWidth: isDark ? 2 : 1,
+        borderColor: isDark ? '#0f172a' : '#ffffff',
+        hoverOffset: 4,
       },
     ],
   };
@@ -40,7 +40,17 @@ const PollChart = ({ options }) => {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: false,
+        position: 'right',
+        labels: {
+          color: isDark ? '#cbd5e1' : '#334155',
+          font: {
+            family: 'Inter, sans-serif',
+            size: 11,
+            weight: '500',
+          },
+          boxWidth: 12,
+          padding: 10,
+        },
       },
       tooltip: {
         backgroundColor: isDark ? '#0f172a' : '#ffffff',
@@ -49,40 +59,23 @@ const PollChart = ({ options }) => {
         borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
         borderWidth: 1,
         padding: 10,
+        callbacks: {
+          label: (context) => {
+            const label = context.label || '';
+            const value = context.raw || 0;
+            const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+            const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+            return ` ${label}: ${value} votes (${percentage}%)`;
+          }
+        }
       },
     },
-    scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          color: isDark ? '#94a3b8' : '#64748b',
-          font: {
-            family: 'Inter, sans-serif',
-            size: 11,
-          },
-        },
-      },
-      y: {
-        grid: {
-          color: isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)',
-        },
-        ticks: {
-          color: isDark ? '#94a3b8' : '#64748b',
-          stepSize: 1,
-          font: {
-            family: 'Inter, sans-serif',
-            size: 11,
-          },
-        },
-      },
-    },
+    cutout: '65%',
   };
 
   return (
-    <div className="h-44 sm:h-52 relative w-full">
-      <Bar data={data} options={chartOptions} />
+    <div className="h-48 sm:h-56 relative w-full flex items-center justify-center">
+      <Doughnut data={data} options={chartOptions} />
     </div>
   );
 };
