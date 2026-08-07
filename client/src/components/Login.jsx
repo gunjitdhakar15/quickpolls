@@ -61,7 +61,7 @@ const Login = () => {
               <input
                 type="email"
                 name="email"
-                placeholder="you@example.com"
+                placeholder=""
                 value={formData.email}
                 onChange={handleChange}
                 className="w-full clean-input"
@@ -78,7 +78,7 @@ const Login = () => {
               <input
                 type="password"
                 name="password"
-                placeholder="••••••••"
+                placeholder=""
                 value={formData.password}
                 onChange={handleChange}
                 className="w-full clean-input"
