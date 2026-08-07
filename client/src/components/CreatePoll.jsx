@@ -59,32 +59,32 @@ const CreatePoll = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto py-8 px-4 sm:px-6">
+    <div className="max-w-2xl mx-auto py-6 px-4">
       {/* Back link */}
       <button
         onClick={() => navigate('/')}
-        className="flex items-center space-x-2 text-slate-400 hover:text-white mb-6 bg-transparent border-0 cursor-pointer text-sm font-semibold"
+        className="flex items-center space-x-1.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white mb-4 bg-transparent border-0 cursor-pointer text-xs font-semibold"
       >
         <ArrowLeft className="h-4 w-4" />
         <span>Back to Polls</span>
       </button>
 
-      <div className="glass-panel p-8">
-        <div className="flex items-center space-x-3 mb-6">
-          <PlusCircle className="h-6 w-6 text-indigo-400" />
-          <h1 className="text-2xl font-bold text-white">Create New Poll</h1>
+      <div className="clean-card p-6">
+        <div className="flex items-center space-x-2.5 mb-5 pb-3 border-b border-slate-200 dark:border-slate-800">
+          <PlusCircle className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
+          <h1 className="text-lg font-bold text-slate-900 dark:text-white">Create New Poll</h1>
         </div>
 
         {error && (
-          <div className="mb-6 p-4 bg-red-950/20 border border-red-500/30 text-red-200 rounded-xl text-sm">
+          <div className="mb-4 p-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800/60 text-red-600 dark:text-red-300 rounded-lg text-xs">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
           {/* Question */}
           <div>
-            <label className="block text-sm font-semibold text-slate-300 mb-2">Question</label>
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Question</label>
             <input
               type="text"
               placeholder="What would you like to ask?"
@@ -93,14 +93,14 @@ const CreatePoll = () => {
                 setQuestion(e.target.value);
                 if (error) setError('');
               }}
-              className="w-full glass-input"
+              className="w-full clean-input"
               required
             />
           </div>
 
           {/* Options */}
-          <div className="space-y-3">
-            <label className="block text-sm font-semibold text-slate-300">Options</label>
+          <div className="space-y-2.5">
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">Options</label>
             {options.map((option, index) => (
               <div key={index} className="flex items-center space-x-2">
                 <input
@@ -108,16 +108,16 @@ const CreatePoll = () => {
                   placeholder={`Option ${index + 1}`}
                   value={option}
                   onChange={(e) => handleOptionChange(index, e.target.value)}
-                  className="w-full glass-input"
+                  className="w-full clean-input"
                   required
                 />
                 {options.length > 2 && (
                   <button
                     type="button"
                     onClick={() => removeOptionField(index)}
-                    className="p-3 bg-red-600/10 hover:bg-red-600/20 border border-red-500/20 hover:border-red-500/40 text-red-400 rounded-xl transition-all cursor-pointer"
+                    className="p-2 bg-red-50 hover:bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800/60 rounded-lg transition-colors cursor-pointer"
                   >
-                    <Trash2 className="h-5 w-5" />
+                    <Trash2 className="h-4 w-4" />
                   </button>
                 )}
               </div>
@@ -128,7 +128,7 @@ const CreatePoll = () => {
           <button
             type="button"
             onClick={addOptionField}
-            className="flex items-center space-x-2 text-sm text-indigo-400 hover:text-indigo-300 font-semibold bg-transparent border-0 cursor-pointer"
+            className="flex items-center space-x-1.5 text-xs text-indigo-600 dark:text-indigo-400 hover:underline font-semibold bg-transparent border-0 cursor-pointer pt-1"
           >
             <Plus className="h-4 w-4" />
             <span>Add Option</span>
@@ -138,7 +138,7 @@ const CreatePoll = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full glass-btn-primary mt-4"
+            className="w-full btn-primary mt-4 py-2 text-xs font-medium"
           >
             {loading ? 'Creating Poll...' : 'Publish Poll'}
           </button>

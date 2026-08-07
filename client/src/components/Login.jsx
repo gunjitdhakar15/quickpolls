@@ -37,50 +37,50 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center py-10 px-4">
-      <div className="w-full max-w-md glass-panel p-8">
+      <div className="w-full max-w-md clean-card p-7">
         <div className="flex flex-col items-center mb-6">
-          <div className="p-3 bg-peach-gradient text-purple-950 rounded-2xl mb-3 shadow-peachGlow">
+          <div className="p-2.5 bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 rounded-xl mb-2.5">
             <LogIn className="h-6 w-6" />
           </div>
-          <h2 className="text-2xl font-black text-white tracking-tight">Welcome Back</h2>
-          <p className="text-purple-200/80 text-xs mt-1">Sign in to vote & access AI insights</p>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Sign In to QuickPolls</h2>
+          <p className="text-slate-500 dark:text-slate-400 text-xs mt-0.5">Access real-time voting & AI telemetry</p>
         </div>
 
         {error && (
-          <div className="mb-5 p-3.5 bg-rose-950/40 border border-rose-400/40 text-rose-200 rounded-xl flex items-center space-x-2.5 text-xs">
-            <AlertTriangle className="h-4 w-4 text-rose-400 shrink-0" />
+          <div className="mb-4 p-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800/60 text-red-600 dark:text-red-300 rounded-lg flex items-center space-x-2 text-xs">
+            <AlertTriangle className="h-4 w-4 shrink-0" />
             <span>{error}</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-bold text-white mb-1.5">Email Address</label>
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
             <div className="relative flex items-center">
-              <Mail className="absolute left-3.5 h-4 w-4 text-peachPink pointer-events-none" />
+              <Mail className="absolute left-3 h-4 w-4 text-slate-400 pointer-events-none" />
               <input
                 type="email"
                 name="email"
                 placeholder="you@example.com"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full glass-input pl-10 pr-4"
+                className="w-full clean-input pl-9"
                 required
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-white mb-1.5">Password</label>
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Password</label>
             <div className="relative flex items-center">
-              <Key className="absolute left-3.5 h-4 w-4 text-peachPink pointer-events-none" />
+              <Key className="absolute left-3 h-4 w-4 text-slate-400 pointer-events-none" />
               <input
                 type="password"
                 name="password"
                 placeholder="••••••••"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full glass-input pl-10 pr-4"
+                className="w-full clean-input pl-9"
                 required
               />
             </div>
@@ -89,16 +89,16 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full glass-btn-primary mt-6 justify-center"
+            className="w-full btn-primary mt-5 justify-center py-2 text-xs font-medium"
           >
             <span>{loading ? 'Authenticating...' : 'Sign In'}</span>
-            {!loading && <ArrowRight className="h-4 w-4 ml-1 text-purple-950" />}
+            {!loading && <ArrowRight className="h-4 w-4 ml-1" />}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-xs text-purple-200/80">
+        <p className="mt-5 text-center text-xs text-slate-500 dark:text-slate-400">
           Don't have an account?{' '}
-          <Link to="/register" className="text-peachPink font-bold hover:text-white transition-colors">
+          <Link to="/register" className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">
             Create an account
           </Link>
         </p>

@@ -9,10 +9,14 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
+import { useTheme } from '../context/ThemeContext';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const PollChart = ({ options }) => {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   const data = {
     labels: options.map(opt => opt.text),
     datasets: [
@@ -20,21 +24,12 @@ const PollChart = ({ options }) => {
         label: 'Votes',
         data: options.map(opt => opt.votes),
         backgroundColor: [
-          'rgba(251, 113, 133, 0.85)', // Peach Pink
-          'rgba(244, 114, 182, 0.85)', // Rose Pink
-          'rgba(252, 165, 165, 0.85)', // Pastel Peach
-          'rgba(192, 132, 252, 0.85)', // Soft Purple
-          'rgba(245, 158, 11, 0.85)',  // Warm Gold
+          isDark ? 'rgba(99, 102, 241, 0.85)' : 'rgba(79, 70, 229, 0.85)',
+          isDark ? 'rgba(14, 165, 233, 0.85)' : 'rgba(2, 132, 199, 0.85)',
+          isDark ? 'rgba(16, 185, 129, 0.85)' : 'rgba(5, 150, 105, 0.85)',
+          isDark ? 'rgba(245, 158, 11, 0.85)' : 'rgba(217, 119, 6, 0.85)',
         ],
-        borderColor: [
-          '#fb7185',
-          '#f472b6',
-          '#fca5a5',
-          '#c084fc',
-          '#f59e0b',
-        ],
-        borderWidth: 1.5,
-        borderRadius: 10,
+        borderRadius: 6,
         borderSkipped: false,
       },
     ],
@@ -48,14 +43,12 @@ const PollChart = ({ options }) => {
         display: false,
       },
       tooltip: {
-        backgroundColor: '#3b0764',
-        titleColor: '#fb7185',
-        bodyColor: '#ffffff',
-        padding: 12,
-        borderColor: 'rgba(255, 255, 255, 0.2)',
+        backgroundColor: isDark ? '#0f172a' : '#ffffff',
+        titleColor: isDark ? '#f8fafc' : '#0f172a',
+        bodyColor: isDark ? '#cbd5e1' : '#334155',
+        borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
         borderWidth: 1,
-        titleFont: { family: 'sans-serif', weight: 'bold' },
-        bodyFont: { family: 'sans-serif' }
+        padding: 10,
       },
     },
     scales: {
@@ -64,22 +57,23 @@ const PollChart = ({ options }) => {
           display: false,
         },
         ticks: {
-          color: '#f5d0fe',
+          color: isDark ? '#94a3b8' : '#64748b',
           font: {
-            family: 'sans-serif',
-            weight: '600',
+            family: 'Inter, sans-serif',
+            size: 11,
           },
         },
       },
       y: {
         grid: {
-          color: 'rgba(255, 255, 255, 0.1)',
+          color: isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)',
         },
         ticks: {
-          color: '#f5d0fe',
+          color: isDark ? '#94a3b8' : '#64748b',
           stepSize: 1,
           font: {
-            family: 'sans-serif',
+            family: 'Inter, sans-serif',
+            size: 11,
           },
         },
       },
@@ -87,7 +81,7 @@ const PollChart = ({ options }) => {
   };
 
   return (
-    <div className="h-64 sm:h-80 relative w-full">
+    <div className="h-44 sm:h-52 relative w-full">
       <Bar data={data} options={chartOptions} />
     </div>
   );

@@ -7,50 +7,47 @@ import Register from './components/Register';
 import CreatePoll from './components/CreatePoll';
 import PollDetail from './components/PollDetail';
 import { isAuthenticated } from './utils/auth';
+import { ThemeProvider } from './context/ThemeContext';
 
-// Protected Route wrapper component
 const ProtectedRoute = ({ children }) => {
   return isAuthenticated() ? children : <Navigate to="/login" replace />;
 };
 
 function App() {
   return (
-    <Router>
-      <div className="flex flex-col min-h-screen bg-darkBg text-gray-100">
-        {/* Navigation */}
-        <Navbar />
+    <ThemeProvider>
+      <Router>
+        <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200">
+          <Navbar />
 
-        {/* Main Content Area */}
-        <main className="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            
-            <Route 
-              path="/create" 
-              element={
-                <ProtectedRoute>
-                  <CreatePoll />
-                </ProtectedRoute>
-              } 
-            />
-            
-            <Route path="/polls/:id" element={<PollDetail />} />
-            
-            {/* Fallback route */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </main>
+          <main className="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              
+              <Route 
+                path="/create" 
+                element={
+                  <ProtectedRoute>
+                    <CreatePoll />
+                  </ProtectedRoute>
+                } 
+              />
+              
+              <Route path="/polls/:id" element={<PollDetail />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </main>
 
-        {/* Footer */}
-        <footer className="border-t border-glassBorder py-6 text-center text-xs text-slate-500 bg-slate-950/40">
-          <div className="max-w-7xl mx-auto px-4">
-            <p>© {new Date().getFullYear()} QuickPolls. Built with React, TailwindCSS, WebSockets, and Gemini AI.</p>
-          </div>
-        </footer>
-      </div>
-    </Router>
+          <footer className="border-t border-slate-200 dark:border-slate-800/80 py-5 text-center text-xs text-slate-500 bg-white dark:bg-slate-900/50">
+            <div className="max-w-7xl mx-auto px-4">
+              <p>© {new Date().getFullYear()} QuickPolls. Built with React, TailwindCSS, WebSockets, and Gemini AI.</p>
+            </div>
+          </footer>
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 }
 

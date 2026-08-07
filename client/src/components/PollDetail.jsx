@@ -110,7 +110,7 @@ const PollDetail = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center py-20">
-        <div className="h-8 w-8 border-3 border-white/20 border-t-peachPink rounded-full animate-spin"></div>
+        <div className="h-7 w-7 border-2 border-slate-300 dark:border-slate-700 border-t-indigo-600 rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -118,9 +118,9 @@ const PollDetail = () => {
   if (error || !poll) {
     return (
       <div className="max-w-xl mx-auto py-10 px-4 text-center">
-        <div className="glass-panel p-6 text-rose-200 border-rose-400/30">
-          <p className="text-sm">{error || 'Poll not found'}</p>
-          <button onClick={() => navigate('/')} className="glass-btn-secondary mt-4 inline-flex text-xs">
+        <div className="clean-card p-6 text-red-500 text-xs">
+          <p>{error || 'Poll not found'}</p>
+          <button onClick={() => navigate('/')} className="btn-secondary mt-3 inline-flex text-xs py-1 px-3">
             Back to Dashboard
           </button>
         </div>
@@ -135,17 +135,17 @@ const PollDetail = () => {
   return (
     <div className="space-y-4">
       {/* Top Header Row */}
-      <div className="flex justify-between items-center pb-2 border-b border-white/15">
+      <div className="flex justify-between items-center pb-3 border-b border-slate-200 dark:border-slate-800">
         <button
           onClick={() => navigate('/')}
-          className="flex items-center space-x-1.5 text-purple-200 hover:text-white bg-transparent border-0 cursor-pointer text-xs font-semibold transition-colors"
+          className="flex items-center space-x-1.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-transparent border-0 cursor-pointer text-xs font-semibold transition-colors"
         >
-          <ArrowLeft className="h-4 w-4 text-peachPink" />
+          <ArrowLeft className="h-4 w-4" />
           <span>Back to Dashboard</span>
         </button>
 
         <div className="flex items-center space-x-3">
-          <span className="inline-flex items-center space-x-1.5 text-[11px] font-bold text-purple-950 bg-peach-gradient px-2.5 py-1 rounded-lg shadow-peachGlow">
+          <span className="inline-flex items-center space-x-1.5 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/60 px-2.5 py-0.5 rounded-md">
             <Radio className="h-3 w-3 animate-pulse" />
             <span>Live WebSocket Sync</span>
           </span>
@@ -153,7 +153,7 @@ const PollDetail = () => {
           {isCreator && (
             <button
               onClick={handleDelete}
-              className="flex items-center space-x-1 text-xs bg-rose-950/40 hover:bg-rose-900/60 border border-rose-400/40 text-rose-200 px-3 py-1.5 rounded-xl transition-all cursor-pointer font-semibold"
+              className="flex items-center space-x-1 text-xs bg-red-50 hover:bg-red-100 dark:bg-red-950/40 dark:hover:bg-red-900/60 border border-red-200 dark:border-red-800/60 text-red-600 dark:text-red-400 px-3 py-1 rounded-lg transition-all cursor-pointer font-medium"
             >
               <Trash2 className="h-3.5 w-3.5" />
               <span>Delete</span>
@@ -163,44 +163,42 @@ const PollDetail = () => {
       </div>
 
       {/* Main Single-Viewport 2-Column Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
         
         {/* Left Column (Question + Options + Chart) */}
-        <div className="lg:col-span-7 space-y-4">
-          <div className="glass-panel p-5">
-            <div className="flex justify-between items-start gap-3 mb-2">
-              <h1 className="text-lg sm:text-xl font-extrabold text-white tracking-tight leading-snug">
-                {poll.question}
-              </h1>
-            </div>
+        <div className="lg:col-span-7 space-y-3.5">
+          <div className="clean-card p-5">
+            <h1 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight mb-2">
+              {poll.question}
+            </h1>
             
-            <div className="flex items-center space-x-4 text-xs text-purple-200/80 mb-4 pb-3 border-b border-white/15">
-              <div className="flex items-center space-x-1.5">
-                <Users className="h-3.5 w-3.5 text-peachPink" />
-                <span className="font-bold text-white">{totalVotes} Total Votes</span>
+            <div className="flex items-center space-x-4 text-xs text-slate-500 dark:text-slate-400 mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
+              <div className="flex items-center space-x-1 font-medium text-slate-700 dark:text-slate-300">
+                <Users className="h-3.5 w-3.5 text-slate-400" />
+                <span>{totalVotes} Total Votes</span>
               </div>
-              <div className="flex items-center space-x-1.5">
-                <Clock className="h-3.5 w-3.5 text-purple-200/60" />
+              <div className="flex items-center space-x-1">
+                <Clock className="h-3.5 w-3.5 text-slate-400" />
                 <span>By {poll.createdBy?.name || 'Alex Rivera'}</span>
               </div>
             </div>
 
             {/* Compact Options List */}
-            <div className="space-y-2.5">
+            <div className="space-y-2">
               {poll.options.map((option) => {
                 const percentage = totalVotes > 0 ? ((option.votes / totalVotes) * 100).toFixed(1) : 0;
                 
                 return (
                   <div key={option._id} className="relative group">
                     <div 
-                      className="absolute inset-y-0 left-0 bg-peachPink/20 rounded-xl transition-all duration-700 ease-out" 
+                      className="absolute inset-y-0 left-0 bg-indigo-50 dark:bg-indigo-950/40 rounded-lg transition-all duration-700 ease-out" 
                       style={{ width: `${percentage}%` }}
                     ></div>
 
-                    <div className="relative flex items-center justify-between p-3 border border-white/20 group-hover:border-white/40 rounded-xl transition-all">
+                    <div className="relative flex items-center justify-between p-2.5 border border-slate-200 dark:border-slate-800 rounded-lg transition-all">
                       <div className="flex flex-col pr-3">
-                        <span className="font-bold text-white text-sm">{option.text}</span>
-                        <span className="text-[11px] text-purple-200/80 mt-0.5 font-semibold">
+                        <span className="font-semibold text-slate-900 dark:text-white text-xs sm:text-sm">{option.text}</span>
+                        <span className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 font-medium">
                           {option.votes} {option.votes === 1 ? 'vote' : 'votes'} ({percentage}%)
                         </span>
                       </div>
@@ -209,14 +207,14 @@ const PollDetail = () => {
                         <button
                           onClick={() => handleVote(option._id)}
                           disabled={votingId !== null}
-                          className="relative z-10 glass-btn-primary py-1.5 px-3.5 text-xs whitespace-nowrap"
+                          className="relative z-10 btn-primary py-1 px-3 text-xs whitespace-nowrap"
                         >
                           {votingId === option._id ? 'Voting...' : 'Vote'}
                         </button>
                       ) : (
                         poll.voters.includes(currentUser?.id) && (
-                          <div className="text-peachPink p-0.5">
-                            <CheckCircle className="h-5 w-5" />
+                          <div className="text-emerald-500 p-0.5">
+                            <CheckCircle className="h-4 w-4" />
                           </div>
                         )
                       )}
@@ -227,44 +225,42 @@ const PollDetail = () => {
             </div>
 
             {userHasVoted && (
-              <div className="mt-3 flex items-center justify-center space-x-1.5 text-xs text-white bg-white/10 border border-white/20 p-2 rounded-xl">
-                <HeartHandshake className="h-3.5 w-3.5 text-peachPink" />
-                <span>Your vote has been recorded atomically in MongoDB.</span>
+              <div className="mt-3 flex items-center justify-center space-x-1.5 text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 p-2 rounded-lg">
+                <HeartHandshake className="h-3.5 w-3.5 text-indigo-600 dark:text-indigo-400" />
+                <span>Your vote has been recorded atomically.</span>
               </div>
             )}
           </div>
 
           {/* Compact Chart */}
           {totalVotes > 0 && (
-            <div className="glass-panel p-4">
-              <h2 className="text-xs font-extrabold uppercase tracking-wider text-purple-200/80 mb-3">Vote Breakdown</h2>
-              <div className="h-44">
-                <PollChart options={poll.options} />
-              </div>
+            <div className="clean-card p-4">
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Vote Distribution</h2>
+              <PollChart options={poll.options} />
             </div>
           )}
         </div>
 
         {/* Right Column (AI Insights) */}
-        <div className="lg:col-span-5 space-y-4">
-          <div className="glass-panel p-5 border-white/25">
+        <div className="lg:col-span-5 space-y-3.5">
+          <div className="clean-card p-5">
             <div className="flex items-center space-x-2 mb-3">
-              <div className="p-1.5 bg-peach-gradient text-purple-950 rounded-lg shadow-peachGlow">
+              <div className="p-1.5 bg-indigo-50 dark:bg-indigo-950/50 rounded-lg text-indigo-600 dark:text-indigo-400">
                 <Brain className="h-4 w-4" />
               </div>
-              <h2 className="text-sm font-extrabold text-white">Google Gemini AI Insights</h2>
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white">Google Gemini AI Insights</h2>
             </div>
 
             {poll.aiAnalysis?.summary ? (
               <div className="space-y-3">
-                <div className="p-3.5 bg-purple-950/40 border border-white/20 rounded-xl">
-                  <div className="flex items-center space-x-1.5 mb-2">
+                <div className="p-3 bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-lg">
+                  <div className="flex items-center space-x-1.5 mb-1.5">
                     <span className="text-base leading-none">{poll.aiAnalysis.emoji}</span>
-                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-peachPink">
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
                       Sentiment: {poll.aiAnalysis.sentiment}
                     </span>
                   </div>
-                  <p className="text-xs text-white leading-relaxed font-medium">
+                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
                     {poll.aiAnalysis.summary}
                   </p>
                 </div>
@@ -272,21 +268,21 @@ const PollDetail = () => {
                 <button
                   onClick={triggerAIAnalysis}
                   disabled={aiLoading}
-                  className="w-full glass-btn-secondary py-2 text-xs"
+                  className="w-full btn-secondary py-1.5 text-xs"
                 >
-                  <Sparkles className={`h-3.5 w-3.5 ${aiLoading ? 'animate-pulse text-peachPink' : ''}`} />
+                  <Sparkles className={`h-3.5 w-3.5 ${aiLoading ? 'animate-pulse text-indigo-600' : ''}`} />
                   <span>{aiLoading ? 'Analyzing...' : 'Recalculate AI Insight'}</span>
                 </button>
               </div>
             ) : (
               <div className="text-center py-4">
-                <p className="text-xs text-purple-200/80 mb-4 leading-relaxed font-medium">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">
                   Analyze voter distribution and sentiment using Google Gemini AI.
                 </p>
                 <button
                   onClick={triggerAIAnalysis}
                   disabled={aiLoading || totalVotes === 0}
-                  className="w-full glass-btn-primary py-2 text-xs"
+                  className="w-full btn-primary py-1.5 text-xs"
                 >
                   <Sparkles className={`h-3.5 w-3.5 ${aiLoading ? 'animate-pulse' : ''}`} />
                   <span>{aiLoading ? 'Analyzing...' : totalVotes === 0 ? 'Need Votes to Analyze' : 'Generate AI Insights'}</span>

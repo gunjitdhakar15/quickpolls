@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { pollsAPI } from '../services/api';
 import { getUser, isAuthenticated } from '../utils/auth';
 import { 
-  Zap, 
   Users, 
   Plus, 
   RefreshCw, 
@@ -52,163 +51,161 @@ const Dashboard = () => {
   const totalVotesAcrossAllPolls = polls.reduce((sum, poll) => sum + getVoteCount(poll), 0);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       
       {/* Header Row */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-white/15 pb-5">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-200 dark:border-slate-800 pb-4">
         <div>
-          <div className="flex items-center space-x-2 text-xs font-bold text-peachPink uppercase tracking-wider mb-0.5">
-            <span className="h-2 w-2 rounded-full bg-peachPink animate-pulse shadow-peachGlow"></span>
-            <span>Realtime Poll Analytics Engine</span>
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-            Poll Dashboard
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+            Dashboard
           </h1>
+          <p className="text-slate-500 dark:text-slate-400 text-xs mt-0.5">
+            Real-time voting engine & AI sentiment analytics
+          </p>
         </div>
 
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2.5">
           <button
             onClick={handleRefresh}
             disabled={refreshing}
-            className="p-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl transition-all text-white cursor-pointer"
+            className="p-2 rounded-lg text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer"
             title="Refresh feed"
           >
-            <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin text-peachPink' : ''}`} />
+            <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin text-indigo-600 dark:text-indigo-400' : ''}`} />
           </button>
           
           {isAuthenticated() ? (
-            <Link to="/create" className="glass-btn-primary">
-              <Plus className="h-4 w-4 text-purple-950" />
+            <Link to="/create" className="btn-primary py-1.5 px-3 text-xs">
+              <Plus className="h-4 w-4" />
               <span>Create Poll</span>
             </Link>
           ) : (
-            <Link to="/register" className="glass-btn-primary">
-              <Sparkles className="h-4 w-4 text-purple-950" />
+            <Link to="/register" className="btn-primary py-1.5 px-3 text-xs">
+              <Sparkles className="h-4 w-4" />
               <span>Get Started</span>
             </Link>
           )}
         </div>
       </div>
 
-      {/* 4 Compact Stat Cards in 1 Row */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="glass-panel p-4 flex items-center justify-between">
+      {/* 4 Clean Metric Cards in 1 Row */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="clean-card p-3.5 flex items-center justify-between">
           <div>
-            <span className="text-[11px] font-medium text-purple-200/80 uppercase tracking-wider">Total Votes</span>
-            <p className="text-xl sm:text-2xl font-black text-white mt-0.5">
+            <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Votes</span>
+            <p className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mt-0.5">
               {totalVotesAcrossAllPolls > 0 ? totalVotesAcrossAllPolls.toLocaleString() : '1,874'}
             </p>
           </div>
-          <div className="p-2.5 bg-peach-gradient text-purple-950 rounded-xl shadow-peachGlow">
-            <TrendingUp className="h-5 w-5" />
+          <div className="p-2 bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 rounded-lg">
+            <TrendingUp className="h-4 w-4" />
           </div>
         </div>
 
-        <div className="glass-panel p-4 flex items-center justify-between">
+        <div className="clean-card p-3.5 flex items-center justify-between">
           <div>
-            <span className="text-[11px] font-medium text-purple-200/80 uppercase tracking-wider">Active Channels</span>
-            <p className="text-xl sm:text-2xl font-black text-white mt-0.5">{polls.length}</p>
+            <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Active Polls</span>
+            <p className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mt-0.5">{polls.length}</p>
           </div>
-          <div className="p-2.5 bg-white/15 text-peachPink rounded-xl border border-white/20">
-            <BarChart2 className="h-5 w-5" />
+          <div className="p-2 bg-cyan-50 dark:bg-cyan-950/50 text-cyan-600 dark:text-cyan-400 rounded-lg">
+            <BarChart2 className="h-4 w-4" />
           </div>
         </div>
 
-        <div className="glass-panel p-4 flex items-center justify-between">
+        <div className="clean-card p-3.5 flex items-center justify-between">
           <div>
-            <span className="text-[11px] font-medium text-purple-200/80 uppercase tracking-wider">Sync Latency</span>
-            <p className="text-xl sm:text-2xl font-black text-white mt-0.5">&lt; 50ms</p>
+            <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Sync Latency</span>
+            <p className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mt-0.5">&lt; 50ms</p>
           </div>
-          <div className="p-2.5 bg-white/15 text-peachPink rounded-xl border border-white/20">
-            <Radio className="h-5 w-5 animate-pulse" />
+          <div className="p-2 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 rounded-lg">
+            <Radio className="h-4 w-4 animate-pulse" />
           </div>
         </div>
 
-        <div className="glass-panel p-4 flex items-center justify-between">
+        <div className="clean-card p-3.5 flex items-center justify-between">
           <div>
-            <span className="text-[11px] font-medium text-purple-200/80 uppercase tracking-wider">Concurrency</span>
-            <p className="text-xl sm:text-2xl font-black text-white mt-0.5">Atomic ($inc)</p>
+            <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Concurrency</span>
+            <p className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mt-0.5">Atomic ($inc)</p>
           </div>
-          <div className="p-2.5 bg-white/15 text-peachPink rounded-xl border border-white/20">
-            <ShieldCheck className="h-5 w-5" />
+          <div className="p-2 bg-violet-50 dark:bg-violet-950/50 text-violet-600 dark:text-violet-400 rounded-lg">
+            <ShieldCheck className="h-4 w-4" />
           </div>
         </div>
       </div>
 
       {/* Active Polls Grid */}
       <div>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-base font-extrabold text-white tracking-tight flex items-center gap-2">
-            <Activity className="h-4 w-4 text-peachPink" />
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <Activity className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
             <span>Active Poll Rooms</span>
           </h2>
-          <span className="text-xs text-purple-200/80">{polls.length} channels live</span>
+          <span className="text-xs text-slate-500 dark:text-slate-400">{polls.length} channels live</span>
         </div>
 
         {loading ? (
-          <div className="flex justify-center py-12">
-            <div className="h-8 w-8 border-3 border-white/20 border-t-peachPink rounded-full animate-spin"></div>
+          <div className="flex justify-center py-10">
+            <div className="h-7 w-7 border-2 border-slate-300 dark:border-slate-700 border-t-indigo-600 dark:border-t-indigo-400 rounded-full animate-spin"></div>
           </div>
         ) : error ? (
-          <div className="glass-panel p-6 text-center text-rose-300 border-rose-400/30 text-xs">
+          <div className="clean-card p-5 text-center text-red-500 dark:text-red-400 text-xs">
             <p>{error}</p>
           </div>
         ) : polls.length === 0 ? (
-          <div className="glass-panel p-8 text-center border-dashed border-white/20">
-            <Zap className="h-8 w-8 text-peachPink mx-auto mb-2" />
-            <h3 className="text-sm font-bold text-white mb-1">No active polls</h3>
-            <p className="text-purple-200/80 text-xs mb-4">Create a poll to start collecting votes in real time.</p>
+          <div className="clean-card p-8 text-center border-dashed">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1">No active polls</h3>
+            <p className="text-slate-500 text-xs mb-3">Create a poll to start collecting votes in real time.</p>
             {isAuthenticated() ? (
-              <Link to="/create" className="glass-btn-primary inline-flex text-xs">
+              <Link to="/create" className="btn-primary inline-flex text-xs py-1.5 px-3">
                 Create Poll
               </Link>
             ) : (
-              <Link to="/login" className="glass-btn-primary inline-flex text-xs">
+              <Link to="/login" className="btn-primary inline-flex text-xs py-1.5 px-3">
                 Login to Create
               </Link>
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
             {polls.map((poll) => {
               const votesTotal = getVoteCount(poll);
               return (
                 <Link
                   key={poll._id}
                   to={`/polls/${poll._id}`}
-                  className="glass-panel-interactive p-5 flex flex-col justify-between group"
+                  className="clean-card-hover p-4 flex flex-col justify-between group"
                 >
                   <div>
-                    <div className="flex justify-between items-start mb-2.5">
-                      <span className="text-[10px] font-extrabold tracking-wider uppercase px-2.5 py-0.5 bg-peach-gradient text-purple-950 rounded-full shadow-peachGlow flex items-center gap-1.5">
-                        <span className="h-1.5 w-1.5 rounded-full bg-purple-950 animate-pulse"></span>
+                    <div className="flex justify-between items-start mb-2">
+                      <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60 rounded-md flex items-center gap-1.5">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                         Active
                       </span>
-                      <span className="text-xs text-purple-200/90 font-semibold">
+                      <span className="text-xs text-slate-500 dark:text-slate-400">
                         {poll.createdBy?.name || 'Alex Rivera'}
                       </span>
                     </div>
 
-                    <h3 className="text-base font-bold text-white mb-3 line-clamp-2 group-hover:text-peachPink transition-colors">
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-2 line-clamp-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                       {poll.question}
                     </h3>
                   </div>
 
-                  <div className="flex items-center justify-between text-xs text-purple-200/80 border-t border-white/15 pt-3 mt-3">
-                    <div className="flex items-center space-x-1.5 text-xs text-white">
-                      <Users className="h-3.5 w-3.5 text-peachPink" />
-                      <span className="font-extrabold">{votesTotal} votes</span>
+                  <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-2.5 mt-2">
+                    <div className="flex items-center space-x-1 text-slate-700 dark:text-slate-300 font-medium">
+                      <Users className="h-3.5 w-3.5 text-slate-400" />
+                      <span>{votesTotal} votes</span>
                     </div>
 
                     {poll.aiAnalysis?.summary ? (
-                      <div className="flex items-center space-x-1 text-purple-950 bg-peach-gradient px-2 py-0.5 rounded-md text-[11px] font-extrabold shadow-sm">
+                      <div className="flex items-center space-x-1 text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-200 dark:border-indigo-800/60 px-2 py-0.5 rounded-md text-[11px] font-semibold">
                         <span>{poll.aiAnalysis.emoji}</span>
                         <span>AI Ready</span>
                       </div>
                     ) : (
-                      <div className="flex items-center space-x-1 text-purple-200 group-hover:text-white font-bold transition-colors text-xs">
-                        <span>View Poll</span>
-                        <ChevronRight className="h-3.5 w-3.5 text-peachPink" />
+                      <div className="flex items-center space-x-1 text-slate-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 font-medium transition-colors">
+                        <span>View</span>
+                        <ChevronRight className="h-3.5 w-3.5" />
                       </div>
                     )}
                   </div>
