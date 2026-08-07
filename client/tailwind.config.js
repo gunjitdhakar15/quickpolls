@@ -7,33 +7,24 @@ export default {
   theme: {
     extend: {
       colors: {
-        darkBg: '#06070a',
-        darkCard: 'rgba(10, 13, 20, 0.75)',
-        cyberBlack: '#0a0b10',
-        electricEmerald: '#00F5A0',
-        cyberCyan: '#00D2FF',
-        cyberAmber: '#FFB800',
-        glassBorder: 'rgba(0, 245, 160, 0.12)',
-        glassBorderBright: 'rgba(0, 245, 160, 0.35)',
+        darkBg: '#090d16',
+        darkCard: 'rgba(15, 23, 42, 0.65)',
+        brandIndigo: '#6366f1',
+        brandViolet: '#4f46e5',
+        brandCyan: '#0ea5e9',
+        brandEmerald: '#10b981',
+        glassBorder: 'rgba(255, 255, 255, 0.08)',
+        glassBorderBright: 'rgba(255, 255, 255, 0.16)',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
       boxShadow: {
-        neonEmerald: '0 0 25px rgba(0, 245, 160, 0.35)',
-        neonCyan: '0 0 25px rgba(0, 210, 255, 0.35)',
-        neonAmber: '0 0 25px rgba(255, 184, 0, 0.35)',
-        cyberCard: '0 12px 40px rgba(0, 0, 0, 0.8)',
-        cyberGlow: '0 0 35px rgba(0, 245, 160, 0.2)',
+        brandGlow: '0 0 25px rgba(99, 102, 241, 0.25)',
+        cardGlow: '0 8px 32px rgba(0, 0, 0, 0.4)',
       },
       backdropBlur: {
-        cyber: '24px',
-      },
-      backgroundImage: {
-        'cyber-gradient': 'linear-gradient(135deg, #0a0b10 0%, #0d121c 50%, #06181b 100%)',
-        'emerald-gradient': 'linear-gradient(135deg, #00F5A0 0%, #00D2FF 100%)',
-        'card-cyber': 'linear-gradient(135deg, rgba(0, 245, 160, 0.12) 0%, rgba(0, 210, 255, 0.04) 100%)',
+        glass: '16px',
       }
     },
   },
