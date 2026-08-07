@@ -1,35 +1,38 @@
 import axios from 'axios';
+import { getToken } from '../utils/auth';
 
-const api = axios.create({
-    baseURL: 'http://localhost:5000/api', // Your backend URL
+const API = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  headers: {
+    'Content-Type': 'application/json'
+  }
 });
 
-// Add token to all requests
-api.interceptors.request.use(
-    (config) => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
+// Auto-attach authorization token
+API.interceptors.request.use(
+  (config) => {
+    const token = getToken();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
+    return config;
+  },
+  (error) => Promise.reject(error)
 );
 
 export const authAPI = {
-    register: (name, email, password) => api.post('/auth/register', { name, email, password }),
-    login: (email, password) => api.post('/auth/login', { email, password }),
+  login: (credentials) => API.post('/auth/login', credentials),
+  register: (userData) => API.post('/auth/register', userData),
+  getMe: () => API.get('/auth/me')
 };
 
 export const pollsAPI = {
-    getPolls: () => api.get('/polls'),
-    getMyPolls: () => api.get('/polls/my-polls'),
-    createPoll: (pollData) => api.post('/polls', pollData),
-    getPoll: (id) => api.get(`/polls/${id}`),
-    vote: (pollId, optionIndex) => api.post(`/polls/${pollId}/vote`, { optionIndex }),
-    deletePoll: (id) => api.delete(`/polls/${id}`),
+  getAll: () => API.get('/polls'),
+  getOne: (id) => API.get(`/polls/${id}`),
+  create: (pollData) => API.post('/polls', pollData),
+  vote: (id, optionId) => API.post(`/polls/${id}/vote`, { optionId }),
+  triggerAI: (id) => API.post(`/polls/${id}/ai`),
+  delete: (id) => API.delete(`/polls/${id}`)
 };
 
-export default api;
+export default API;

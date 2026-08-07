@@ -1,17 +1,33 @@
-import { jwtDecode } from 'jwt-decode';
+export const setToken = (token) => {
+  if (token) {
+    localStorage.setItem('token', token);
+  } else {
+    localStorage.removeItem('token');
+  }
+};
 
-export const getUserId = () => {
-    const token = localStorage.getItem('token');
-    if (!token) return null;
-    try {
-        const decoded = jwtDecode(token);
-        return decoded.id;
-    } catch (err) {
-        return null;
-    }
+export const getToken = () => {
+  return localStorage.getItem('token');
+};
+
+export const logout = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+};
+
+export const getUser = () => {
+  const userStr = localStorage.getItem('user');
+  try {
+    return userStr ? JSON.parse(userStr) : null;
+  } catch (e) {
+    return null;
+  }
+};
+
+export const setUser = (user) => {
+  localStorage.setItem('user', JSON.stringify(user));
 };
 
 export const isAuthenticated = () => {
-    return !!localStorage.getItem('token');
+  return !!getToken();
 };
-
