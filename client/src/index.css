@@ -21,11 +21,7 @@
 }
 
 .clean-input {
-  @apply bg-slate-50 border border-slate-300 dark:bg-slate-950 dark:border-slate-800 rounded-lg px-3.5 py-2 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all duration-150 text-sm;
-}
-
-.clean-input-icon {
-  @apply clean-input !pl-10;
+  @apply bg-slate-50 border border-slate-300 dark:bg-slate-950 dark:border-slate-800 rounded-lg py-2 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all duration-150 text-sm;
 }
 
 .btn-primary {

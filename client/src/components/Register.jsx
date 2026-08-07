@@ -68,7 +68,8 @@ const Register = () => {
                 placeholder="Alex Rivera"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full clean-input-icon"
+                className="w-full clean-input"
+                style={{ paddingLeft: '40px', paddingRight: '14px' }}
                 required
               />
             </div>
@@ -84,7 +85,8 @@ const Register = () => {
                 placeholder="alex@example.com"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full clean-input-icon"
+                className="w-full clean-input"
+                style={{ paddingLeft: '40px', paddingRight: '14px' }}
                 required
               />
             </div>
@@ -100,7 +102,8 @@ const Register = () => {
                 placeholder="At least 6 characters"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full clean-input-icon"
+                className="w-full clean-input"
+                style={{ paddingLeft: '40px', paddingRight: '14px' }}
                 required
               />
             </div>

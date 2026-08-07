@@ -16,7 +16,7 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
     if (!formData.email || !formData.password) {
       setError('Please fill in all fields');
       return;
@@ -64,7 +64,8 @@ const Login = () => {
                 placeholder="you@example.com"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full clean-input-icon"
+                className="w-full clean-input"
+                style={{ paddingLeft: '40px', paddingRight: '14px' }}
                 required
               />
             </div>
@@ -80,7 +81,8 @@ const Login = () => {
                 placeholder="••••••••"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full clean-input-icon"
+                className="w-full clean-input"
+                style={{ paddingLeft: '40px', paddingRight: '14px' }}
                 required
               />
             </div>
