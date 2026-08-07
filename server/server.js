@@ -28,6 +28,15 @@ mongoose.connect(MONGODB_URI)
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/polls', require('./routes/polls'));
 
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({
+    message: '⚡ QuickPolls API & WebSocket Engine is Live',
+    health: '/api/health',
+    documentation: 'https://github.com/gunjitdhakar15/quickpolls'
+  });
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ 
