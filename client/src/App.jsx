@@ -21,7 +21,7 @@ function App() {
         <Navbar />
 
         {/* Main Content Area */}
-        <main className="flex-grow max-w-6xl w-full mx-auto px-4 py-8">
+        <main className="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/login" element={<Login />} />
@@ -44,8 +44,8 @@ function App() {
         </main>
 
         {/* Footer */}
-        <footer className="border-t border-glassBorder py-6 text-center text-xs text-slate-500 bg-slate-950/20">
-          <div className="max-w-6xl mx-auto px-4">
+        <footer className="border-t border-glassBorder py-6 text-center text-xs text-slate-500 bg-slate-950/40">
+          <div className="max-w-7xl mx-auto px-4">
             <p>© {new Date().getFullYear()} QuickPolls. Built with React, TailwindCSS, WebSockets, and Gemini AI.</p>
           </div>
         </footer>

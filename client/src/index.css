@@ -4,35 +4,62 @@
 
 @layer base {
   body {
-    @apply bg-darkBg text-gray-100 min-h-screen font-sans;
+    @apply bg-darkBg text-slate-100 min-h-screen font-sans antialiased overflow-x-hidden;
+    background-color: #070913;
     background-image: 
-      radial-gradient(at 0% 0%, rgba(88, 80, 236, 0.1) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.05) 0px, transparent 50%);
+      radial-gradient(circle at 15% 20%, rgba(124, 58, 237, 0.18) 0%, transparent 45%),
+      radial-gradient(circle at 85% 65%, rgba(20, 184, 166, 0.15) 0%, transparent 45%),
+      radial-gradient(circle at 50% 90%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
     background-attachment: fixed;
   }
 }
 
-/* Glassmorphism utility classes */
+/* Glassmorphism panel styling matching screenshot */
 .glass-panel {
-  @apply bg-glassBg border border-glassBorder rounded-2xl backdrop-blur-glass shadow-glass;
+  @apply bg-darkCard border border-glassBorder rounded-2xl backdrop-blur-glass shadow-glass transition-all duration-300;
+}
+
+.glass-panel-interactive {
+  @apply glass-panel hover:border-glassBorderBright hover:shadow-cardGlow hover:-translate-y-1;
 }
 
 .glass-input {
-  @apply bg-slate-900/40 border border-slate-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-indigoNeon focus:ring-1 focus:ring-indigoNeon/50 transition-all duration-300;
+  @apply bg-slate-900/60 border border-slate-700/60 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-indigoNeon focus:ring-2 focus:ring-indigoNeon/30 transition-all duration-300;
 }
 
 .glass-btn-primary {
-  @apply bg-gradient-to-r from-indigoNeon to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white font-semibold py-3 px-6 rounded-xl shadow-neonIndigo hover:shadow-indigo-500/50 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 cursor-pointer text-center;
+  @apply bg-gradient-to-r from-purple-600 via-indigo-600 to-teal-500 hover:from-purple-500 hover:to-teal-400 text-white font-semibold py-3 px-6 rounded-xl shadow-neonIndigo transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 cursor-pointer text-center flex items-center justify-center space-x-2;
 }
 
 .glass-btn-secondary {
-  @apply bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/50 text-white font-semibold py-3 px-6 rounded-xl hover:border-slate-500/50 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 cursor-pointer text-center;
+  @apply bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-slate-200 hover:text-white font-semibold py-3 px-6 rounded-xl hover:border-slate-500/50 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 cursor-pointer text-center flex items-center justify-center space-x-2;
 }
 
-.glass-btn-danger {
-  @apply bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-red-500/20 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 cursor-pointer text-center;
+.glass-card-hero {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.8) 0%, rgba(79, 70, 229, 0.7) 40%, rgba(13, 148, 136, 0.8) 100%);
+  @apply rounded-3xl p-6 shadow-cardGlow border border-white/20 relative overflow-hidden backdrop-blur-md;
 }
 
-.card-hover {
-  @apply transition-all duration-300 hover:border-indigoNeon/30 hover:shadow-indigoNeon/10 hover:shadow-lg;
+/* Glowing badge animations */
+.glow-dot-emerald {
+  @apply h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_#10b981];
+}
+
+.glow-dot-purple {
+  @apply h-2.5 w-2.5 rounded-full bg-purple-400 animate-pulse shadow-[0_0_10px_#a855f7];
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #070913;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
 }
