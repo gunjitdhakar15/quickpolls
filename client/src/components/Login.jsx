@@ -57,14 +57,14 @@ const Login = () => {
           <div>
             <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
             <div className="relative flex items-center">
-              <Mail className="absolute left-3 h-4 w-4 text-slate-400 pointer-events-none" />
+              <Mail className="absolute left-3.5 h-4 w-4 text-slate-400 pointer-events-none z-10" />
               <input
                 type="email"
                 name="email"
                 placeholder="you@example.com"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full clean-input pl-9"
+                className="w-full clean-input-icon"
                 required
               />
             </div>
@@ -73,14 +73,14 @@ const Login = () => {
           <div>
             <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Password</label>
             <div className="relative flex items-center">
-              <Key className="absolute left-3 h-4 w-4 text-slate-400 pointer-events-none" />
+              <Key className="absolute left-3.5 h-4 w-4 text-slate-400 pointer-events-none z-10" />
               <input
                 type="password"
                 name="password"
                 placeholder="••••••••"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full clean-input pl-9"
+                className="w-full clean-input-icon"
                 required
               />
             </div>
