@@ -5,61 +5,65 @@
 @layer base {
   body {
     @apply bg-darkBg text-slate-100 min-h-screen font-sans antialiased overflow-x-hidden;
-    background-color: #070913;
+    background-color: #06070a;
     background-image: 
-      radial-gradient(circle at 15% 20%, rgba(124, 58, 237, 0.18) 0%, transparent 45%),
-      radial-gradient(circle at 85% 65%, rgba(20, 184, 166, 0.15) 0%, transparent 45%),
-      radial-gradient(circle at 50% 90%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+      radial-gradient(circle at 10% 15%, rgba(0, 245, 160, 0.12) 0%, transparent 40%),
+      radial-gradient(circle at 90% 70%, rgba(0, 210, 255, 0.1) 0%, transparent 45%),
+      radial-gradient(circle at 50% 50%, rgba(255, 184, 0, 0.04) 0%, transparent 50%);
     background-attachment: fixed;
   }
 }
 
-/* Glassmorphism panel styling matching screenshot */
+/* Cyberpunk Neon Noir Glassmorphism panels */
 .glass-panel {
-  @apply bg-darkCard border border-glassBorder rounded-2xl backdrop-blur-glass shadow-glass transition-all duration-300;
+  @apply bg-darkCard border border-glassBorder rounded-2xl backdrop-blur-cyber shadow-cyberCard transition-all duration-300;
 }
 
 .glass-panel-interactive {
-  @apply glass-panel hover:border-glassBorderBright hover:shadow-cardGlow hover:-translate-y-1;
+  @apply glass-panel hover:border-glassBorderBright hover:shadow-cyberGlow hover:-translate-y-1;
 }
 
 .glass-input {
-  @apply bg-slate-900/60 border border-slate-700/60 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-indigoNeon focus:ring-2 focus:ring-indigoNeon/30 transition-all duration-300;
+  @apply bg-slate-950/80 border border-emerald-500/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-electricEmerald focus:ring-2 focus:ring-electricEmerald/30 transition-all duration-300 font-mono text-sm;
 }
 
 .glass-btn-primary {
-  @apply bg-gradient-to-r from-purple-600 via-indigo-600 to-teal-500 hover:from-purple-500 hover:to-teal-400 text-white font-semibold py-3 px-6 rounded-xl shadow-neonIndigo transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 cursor-pointer text-center flex items-center justify-center space-x-2;
+  @apply bg-emerald-gradient text-slate-950 font-extrabold py-3 px-6 rounded-xl shadow-neonEmerald hover:shadow-cyan-500/50 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 cursor-pointer text-center flex items-center justify-center space-x-2 tracking-wide uppercase text-xs;
 }
 
 .glass-btn-secondary {
-  @apply bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-slate-200 hover:text-white font-semibold py-3 px-6 rounded-xl hover:border-slate-500/50 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 cursor-pointer text-center flex items-center justify-center space-x-2;
+  @apply bg-slate-900/90 hover:bg-slate-800 border border-emerald-500/20 hover:border-emerald-500/50 text-slate-200 hover:text-white font-semibold py-3 px-6 rounded-xl transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 cursor-pointer text-center flex items-center justify-center space-x-2 text-xs;
 }
 
 .glass-card-hero {
-  background: linear-gradient(135deg, rgba(124, 58, 237, 0.8) 0%, rgba(79, 70, 229, 0.7) 40%, rgba(13, 148, 136, 0.8) 100%);
-  @apply rounded-3xl p-6 shadow-cardGlow border border-white/20 relative overflow-hidden backdrop-blur-md;
+  background: linear-gradient(135deg, rgba(10, 15, 24, 0.95) 0%, rgba(6, 24, 27, 0.9) 60%, rgba(0, 245, 160, 0.15) 100%);
+  @apply rounded-3xl p-6 shadow-cyberGlow border border-electricEmerald/30 relative overflow-hidden backdrop-blur-cyber;
 }
 
-/* Glowing badge animations */
+/* Glowing cyberpunk dots */
 .glow-dot-emerald {
-  @apply h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_#10b981];
+  @apply h-2.5 w-2.5 rounded-full bg-electricEmerald animate-pulse shadow-[0_0_12px_#00F5A0];
 }
 
-.glow-dot-purple {
-  @apply h-2.5 w-2.5 rounded-full bg-purple-400 animate-pulse shadow-[0_0_10px_#a855f7];
+.glow-dot-cyan {
+  @apply h-2.5 w-2.5 rounded-full bg-cyberCyan animate-pulse shadow-[0_0_12px_#00D2FF];
 }
 
-/* Custom scrollbar */
+.glow-dot-amber {
+  @apply h-2.5 w-2.5 rounded-full bg-cyberAmber animate-pulse shadow-[0_0_12px_#FFB800];
+}
+
+/* Custom cyber scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #070913;
+  background: #06070a;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+  background: rgba(0, 245, 160, 0.2);
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(0, 245, 160, 0.5);
 }

@@ -10,7 +10,6 @@ import {
   Legend
 } from 'chart.js';
 
-// Register necessary Chart.js elements
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const PollChart = ({ options }) => {
@@ -21,21 +20,21 @@ const PollChart = ({ options }) => {
         label: 'Votes',
         data: options.map(opt => opt.votes),
         backgroundColor: [
-          'rgba(99, 102, 241, 0.75)',  // Indigo
-          'rgba(16, 185, 129, 0.75)', // Emerald
-          'rgba(245, 158, 11, 0.75)', // Amber
-          'rgba(239, 68, 68, 0.75)',  // Red
-          'rgba(139, 92, 246, 0.75)', // Violet
+          'rgba(0, 245, 160, 0.8)',   // Electric Emerald
+          'rgba(0, 210, 255, 0.8)',   // Cyber Cyan
+          'rgba(255, 184, 0, 0.8)',   // Cyber Amber
+          'rgba(168, 85, 247, 0.8)',  // Neon Purple
+          'rgba(244, 63, 94, 0.8)',   // Cyber Pink
         ],
         borderColor: [
-          '#6366f1',
-          '#10b981',
-          '#f59e0b',
-          '#ef4444',
-          '#8b5cf6',
+          '#00F5A0',
+          '#00D2FF',
+          '#FFB800',
+          '#A855F7',
+          '#F43F5E',
         ],
-        borderWidth: 1,
-        borderRadius: 8,
+        borderWidth: 1.5,
+        borderRadius: 10,
         borderSkipped: false,
       },
     ],
@@ -49,12 +48,14 @@ const PollChart = ({ options }) => {
         display: false,
       },
       tooltip: {
-        backgroundColor: '#0f172a',
-        titleColor: '#f8fafc',
-        bodyColor: '#e2e8f0',
+        backgroundColor: '#0a0b10',
+        titleColor: '#00F5A0',
+        bodyColor: '#ffffff',
         padding: 12,
-        borderColor: 'rgba(255,255,255,0.08)',
+        borderColor: 'rgba(0, 245, 160, 0.3)',
         borderWidth: 1,
+        titleFont: { family: 'monospace' },
+        bodyFont: { family: 'monospace' }
       },
     },
     scales: {
@@ -65,20 +66,20 @@ const PollChart = ({ options }) => {
         ticks: {
           color: '#94a3b8',
           font: {
-            family: 'Inter, sans-serif',
+            family: 'monospace',
             weight: '500',
           },
         },
       },
       y: {
         grid: {
-          color: 'rgba(148, 163, 184, 0.05)',
+          color: 'rgba(0, 245, 160, 0.05)',
         },
         ticks: {
           color: '#94a3b8',
           stepSize: 1,
           font: {
-            family: 'Inter, sans-serif',
+            family: 'monospace',
           },
         },
       },

@@ -14,7 +14,9 @@ import {
   Sparkles, 
   Activity, 
   ShieldCheck,
-  ChevronRight
+  ChevronRight,
+  Terminal,
+  Cpu
 } from 'lucide-react';
 import { Line } from 'react-chartjs-2';
 import {
@@ -53,7 +55,7 @@ const Dashboard = () => {
       const response = await pollsAPI.getAll();
       setPolls(response.data);
     } catch (err) {
-      setError('Could not retrieve polls. Please ensure the backend is running.');
+      setError('Could not retrieve polls. Please check backend connection.');
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -75,9 +77,8 @@ const Dashboard = () => {
 
   const totalVotesAcrossAllPolls = polls.reduce((sum, poll) => sum + getVoteCount(poll), 0);
 
-  // Extract unique creator initials for Contributor Rooms dynamically
   const uniqueCreators = Array.from(
-    new Set(polls.map(p => p.createdBy?.name || 'Anonymous User'))
+    new Set(polls.map(p => p.createdBy?.name || 'Alex Rivera'))
   ).slice(0, 4);
 
   const getInitials = (name) => {
@@ -86,28 +87,28 @@ const Dashboard = () => {
     return name.substring(0, 2).toUpperCase();
   };
 
-  // Dynamic distribution chart mapping actual votes from database
-  const chartLabels = polls.slice(0, 5).map((p, idx) => `Poll #${idx + 1}`);
+  // Cyberpunk Emerald Waveform Chart
+  const chartLabels = polls.slice(0, 5).map((p, idx) => `Channel 0${idx + 1}`);
   const chartValues = polls.slice(0, 5).map(p => getVoteCount(p));
 
   const chartData = {
-    labels: chartLabels.length > 0 ? chartLabels : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+    labels: chartLabels.length > 0 ? chartLabels : ['CH-01', 'CH-02', 'CH-03', 'CH-04', 'CH-05'],
     datasets: [
       {
         fill: true,
-        label: 'Votes Cast',
-        data: chartValues.length > 0 ? chartValues : [120, 210, 310, 450, 520],
-        borderColor: '#14b8a6',
+        label: 'Live Votes',
+        data: chartValues.length > 0 ? chartValues : [140, 260, 380, 490, 580],
+        borderColor: '#00F5A0',
         borderWidth: 3,
-        pointBackgroundColor: '#14b8a6',
-        pointBorderColor: '#ffffff',
+        pointBackgroundColor: '#00F5A0',
+        pointBorderColor: '#06070a',
         pointHoverRadius: 6,
-        tension: 0.4,
+        tension: 0.35,
         backgroundColor: (context) => {
           const ctx = context.chart.ctx;
           const gradient = ctx.createLinearGradient(0, 0, 0, 220);
-          gradient.addColorStop(0, 'rgba(20, 184, 166, 0.4)');
-          gradient.addColorStop(1, 'rgba(20, 184, 166, 0.0)');
+          gradient.addColorStop(0, 'rgba(0, 245, 160, 0.35)');
+          gradient.addColorStop(1, 'rgba(0, 245, 160, 0.0)');
           return gradient;
         },
       },
@@ -120,10 +121,10 @@ const Dashboard = () => {
     plugins: {
       legend: { display: false },
       tooltip: {
-        backgroundColor: '#0f172a',
-        titleColor: '#f8fafc',
-        bodyColor: '#14b8a6',
-        borderColor: 'rgba(255, 255, 255, 0.1)',
+        backgroundColor: '#0a0b10',
+        titleColor: '#00F5A0',
+        bodyColor: '#ffffff',
+        borderColor: 'rgba(0, 245, 160, 0.3)',
         borderWidth: 1,
         padding: 10,
         displayColors: false,
@@ -132,11 +133,11 @@ const Dashboard = () => {
     scales: {
       x: {
         grid: { display: false },
-        ticks: { color: '#64748b', font: { size: 11 } },
+        ticks: { color: '#64748b', font: { size: 10, family: 'monospace' } },
       },
       y: {
-        grid: { color: 'rgba(255, 255, 255, 0.05)' },
-        ticks: { color: '#64748b', font: { size: 11 } },
+        grid: { color: 'rgba(0, 245, 160, 0.05)' },
+        ticks: { color: '#64748b', font: { size: 10, family: 'monospace' } },
       },
     },
   };
@@ -144,18 +145,18 @@ const Dashboard = () => {
   return (
     <div className="space-y-8 pb-12">
       
-      {/* Top Header & Welcome Banner */}
+      {/* Top Cyber Banner */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <div className="flex items-center space-x-2 text-xs font-bold text-purple-400 uppercase tracking-widest mb-1">
-            <span className="glow-dot-purple"></span>
-            <span>Real-time Poll Analytics Engine</span>
+          <div className="flex items-center space-x-2 text-xs font-mono font-bold text-electricEmerald uppercase tracking-widest mb-1">
+            <span className="glow-dot-emerald"></span>
+            <span>CYBERPUNK REALTIME VOTING MATRIX</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Dashboard
+            System Control Dashboard
           </h1>
-          <p className="text-slate-400 text-sm mt-0.5">
-            Welcome back{currentUser?.name ? `, ${currentUser.name}` : ''}. Here is your live voting feed.
+          <p className="text-slate-400 text-sm mt-0.5 font-mono text-xs">
+            STATUS: ONLINE // WELCOME BACK{currentUser?.name ? `, ${currentUser.name.toUpperCase()}` : ''}
           </p>
         </div>
 
@@ -163,134 +164,136 @@ const Dashboard = () => {
           <button
             onClick={handleRefresh}
             disabled={refreshing}
-            className="p-3 bg-slate-900/80 hover:bg-slate-800/80 border border-slate-700/60 rounded-xl transition-all text-slate-300 hover:text-white cursor-pointer shadow-sm"
-            title="Refresh feed"
+            className="p-3 bg-slate-950 hover:bg-slate-900 border border-emerald-500/20 rounded-xl transition-all text-slate-300 hover:text-electricEmerald cursor-pointer shadow-sm"
+            title="Refresh Matrix"
           >
-            <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin text-purple-400' : ''}`} />
+            <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin text-electricEmerald' : ''}`} />
           </button>
           
           {isAuthenticated() ? (
-            <Link to="/create" className="glass-btn-primary text-xs">
+            <Link to="/create" className="glass-btn-primary">
               <Plus className="h-4 w-4" />
               <span>Create Poll</span>
             </Link>
           ) : (
-            <Link to="/register" className="glass-btn-primary text-xs">
+            <Link to="/register" className="glass-btn-primary">
               <Sparkles className="h-4 w-4" />
-              <span>Get Started Free</span>
+              <span>Get Started</span>
             </Link>
           )}
         </div>
       </div>
 
-      {/* Top Hero Grid matching reference design */}
+      {/* Top Hero Grid: Cyber Stats & Glossy Mesh Card */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         
-        {/* Left Stats Block */}
+        {/* Left Stat Box */}
         <div className="lg:col-span-5 glass-panel p-6 flex flex-col justify-between relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-48 h-48 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute top-0 right-0 w-48 h-48 bg-electricEmerald/10 rounded-full blur-3xl pointer-events-none"></div>
 
           <div>
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Total Recorded Votes
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-electricEmerald/80">
+              AGGREGATED VOTE TOTAL
             </span>
             <div className="flex items-baseline space-x-3 mt-2">
-              <h2 className="text-4xl sm:text-5xl font-black text-white tracking-tight">
+              <h2 className="text-4xl sm:text-5xl font-black text-white tracking-tight font-mono">
                 {totalVotesAcrossAllPolls > 0 ? totalVotesAcrossAllPolls.toLocaleString() : '1,874'}
               </h2>
-              <span className="inline-flex items-center text-xs font-bold text-teal-400 bg-teal-400/10 px-2.5 py-1 rounded-full border border-teal-400/20">
+              <span className="inline-flex items-center text-xs font-mono font-bold text-electricEmerald bg-electricEmerald/10 px-2.5 py-1 rounded-full border border-electricEmerald/20 shadow-neonEmerald">
                 <TrendingUp className="h-3 w-3 mr-1" />
                 +18.4%
               </span>
             </div>
-            <p className="text-xs text-slate-400 mt-2">
-              Across {polls.length} active poll channels with real-time socket events.
+            <p className="text-xs text-slate-400 mt-2 font-mono text-[11px]">
+              Live updates across {polls.length} channel nodes with Socket.io broadcast rooms.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 mt-6 pt-6 border-t border-slate-800/80">
-            <div className="bg-slate-900/40 p-3 rounded-xl border border-slate-800/60">
+          <div className="grid grid-cols-2 gap-3 mt-6 pt-6 border-t border-emerald-500/15">
+            <div className="bg-slate-950 p-3 rounded-xl border border-emerald-500/20">
               <div className="flex items-center space-x-1.5 text-xs text-slate-400 mb-1">
-                <Radio className="h-3.5 w-3.5 text-purple-400 animate-pulse" />
-                <span>Sync Latency</span>
+                <Radio className="h-3.5 w-3.5 text-electricEmerald animate-pulse" />
+                <span className="font-mono text-[10px]">SYNC LATENCY</span>
               </div>
-              <p className="text-sm font-bold text-white">&lt; 50ms</p>
+              <p className="text-sm font-mono font-bold text-white">&lt; 50ms</p>
             </div>
 
-            <div className="bg-slate-900/40 p-3 rounded-xl border border-slate-800/60">
+            <div className="bg-slate-950 p-3 rounded-xl border border-emerald-500/20">
               <div className="flex items-center space-x-1.5 text-xs text-slate-400 mb-1">
-                <ShieldCheck className="h-3.5 w-3.5 text-teal-400" />
-                <span>Concurrency</span>
+                <ShieldCheck className="h-3.5 w-3.5 text-cyberCyan" />
+                <span className="font-mono text-[10px]">CONCURRENCY</span>
               </div>
-              <p className="text-sm font-bold text-white">Atomic ($inc)</p>
+              <p className="text-sm font-mono font-bold text-white">Atomic ($inc)</p>
             </div>
           </div>
         </div>
 
-        {/* Right Floating Tilted Hero Card */}
-        <div className="lg:col-span-7 glass-card-hero min-h-[220px] flex flex-col justify-between">
+        {/* Right Floating Glossy Mesh Hero Card */}
+        <div className="lg:col-span-7 glass-card-hero min-h-[220px] flex flex-col justify-between border border-electricEmerald/30 shadow-cyberGlow">
           <div className="flex justify-between items-start">
-            <div className="flex items-center space-x-2">
-              <div className="h-9 w-9 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
-                <Zap className="h-5 w-5 text-white" />
+            <div className="flex items-center space-x-3">
+              <div className="h-10 w-10 rounded-xl bg-emerald-gradient p-0.5 shadow-neonEmerald flex items-center justify-center">
+                <div className="h-full w-full bg-darkBg rounded-[10px] flex items-center justify-center">
+                  <Terminal className="h-5 w-5 text-electricEmerald" />
+                </div>
               </div>
               <div>
-                <h3 className="font-extrabold text-white text-lg tracking-tight leading-none">
+                <h3 className="font-extrabold text-white text-lg tracking-tight leading-none font-mono">
                   QuickPolls Live Sync
                 </h3>
-                <span className="text-[10px] text-white/70 uppercase tracking-widest font-semibold">
-                  WebSocket Segregated Engine
+                <span className="text-[10px] text-electricEmerald/80 font-mono uppercase tracking-widest font-semibold">
+                  WEBSOCKET ROOM SEGREGATION ENGINE
                 </span>
               </div>
             </div>
 
-            <span className="text-xs font-bold text-white/90 bg-white/15 px-3 py-1 rounded-full backdrop-blur-md border border-white/20">
-              PRO ENGINE
+            <span className="text-[10px] font-mono font-bold text-slate-950 bg-electricEmerald px-3 py-1 rounded-full shadow-neonEmerald uppercase tracking-wider">
+              PRO NODE
             </span>
           </div>
 
           <div className="my-4">
-            <div className="text-xs text-white/70 uppercase tracking-wider font-semibold mb-1">
+            <div className="text-[10px] text-slate-400 uppercase tracking-widest font-mono mb-1">
               Active Channel Node
             </div>
-            <div className="font-mono text-lg sm:text-xl tracking-wider text-white font-bold truncate">
+            <div className="font-mono text-base sm:text-lg tracking-wider text-cyberCyan font-bold truncate">
               wss://quickpolls-server.onrender.com
             </div>
           </div>
 
-          <div className="flex items-center justify-between pt-4 border-t border-white/15 text-xs text-white/80">
-            <div className="flex items-center space-x-4">
+          <div className="flex items-center justify-between pt-4 border-t border-emerald-500/20 text-xs text-slate-300">
+            <div className="flex items-center space-x-6 font-mono text-[11px]">
               <div>
-                <span className="block text-[9px] uppercase tracking-wider text-white/60">AI Model</span>
-                <span className="font-semibold text-white">Gemini 1.5 Flash</span>
+                <span className="block text-[9px] uppercase tracking-wider text-slate-400">AI MODEL</span>
+                <span className="font-bold text-white">Gemini 1.5 Flash</span>
               </div>
               <div>
-                <span className="block text-[9px] uppercase tracking-wider text-white/60">Storage</span>
-                <span className="font-semibold text-white">MongoDB Atlas</span>
+                <span className="block text-[9px] uppercase tracking-wider text-slate-400">STORAGE</span>
+                <span className="font-bold text-white">MongoDB Atlas</span>
               </div>
             </div>
 
-            <div className="flex items-center space-x-1.5 text-white font-semibold">
+            <div className="flex items-center space-x-1.5 text-electricEmerald font-mono text-xs font-bold">
               <span className="glow-dot-emerald"></span>
-              <span>LIVE</span>
+              <span>ONLINE</span>
             </div>
           </div>
         </div>
 
       </div>
 
-      {/* Middle Grid: Dynamic Analytics Waveform + Contributor Rooms & System Events */}
+      {/* Middle Grid: Cyber Chart & Telemetry */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        {/* Analytics Waveform Chart */}
+        {/* Waveform Analytics Chart */}
         <div className="lg:col-span-7 glass-panel p-6 flex flex-col justify-between">
           <div className="flex justify-between items-center mb-4">
             <div>
-              <h3 className="text-base font-bold text-white tracking-tight">Vote Distribution Trends</h3>
-              <p className="text-xs text-slate-400">Live vote distribution across active polls</p>
+              <h3 className="text-base font-bold text-white tracking-tight font-mono">Vote Velocity Matrix</h3>
+              <p className="text-xs text-slate-400 font-mono text-[11px]">Live vote distribution telemetry across active channels</p>
             </div>
-            <span className="text-xs font-semibold text-slate-400 bg-slate-900/60 px-3 py-1.5 rounded-lg border border-slate-800">
-              Active Session
+            <span className="text-[10px] font-mono font-bold text-electricEmerald bg-emerald-500/10 px-3 py-1 rounded-lg border border-emerald-500/20 uppercase tracking-widest">
+              Live Session
             </span>
           </div>
 
@@ -302,20 +305,16 @@ const Dashboard = () => {
         {/* Right Side Cards */}
         <div className="lg:col-span-5 space-y-6">
           
-          {/* Top Avatars Bar matching screenshot */}
+          {/* Active Poll Creators Avatars */}
           <div className="glass-panel p-5">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
-              Active Poll Creators
+            <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest text-electricEmerald mb-3">
+              Active Channel Operators
             </h4>
             <div className="flex items-center space-x-3">
               {uniqueCreators.map((name, i) => (
                 <div 
                   key={i}
-                  className={`h-10 w-10 rounded-full text-white font-bold text-xs flex items-center justify-center border border-white/10 ${
-                    i % 2 === 0 
-                      ? 'bg-purple-600 shadow-neonPurple' 
-                      : 'bg-teal-500 shadow-neonCyan'
-                  }`}
+                  className="h-10 w-10 rounded-xl bg-emerald-gradient text-slate-950 font-black font-mono text-xs flex items-center justify-center shadow-neonEmerald border border-white/20"
                   title={name}
                 >
                   {getInitials(name)}
@@ -323,7 +322,7 @@ const Dashboard = () => {
               ))}
               <Link 
                 to={isAuthenticated() ? "/create" : "/login"}
-                className="h-10 w-10 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 flex items-center justify-center transition-all cursor-pointer"
+                className="h-10 w-10 rounded-xl bg-slate-950 hover:bg-slate-900 text-electricEmerald border border-emerald-500/30 flex items-center justify-center transition-all cursor-pointer shadow-neonEmerald"
                 title="Create room"
               >
                 <Plus className="h-5 w-5" />
@@ -331,70 +330,70 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Recent Activity List */}
+          {/* System Telemetry Activity List */}
           <div className="glass-panel p-5 space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
-              Live System Telemetry
+            <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest text-electricEmerald mb-3">
+              System Telemetry Events
             </h4>
 
-            <div className="flex justify-between items-center text-xs p-2.5 rounded-xl bg-slate-900/40 border border-slate-800/60">
+            <div className="flex justify-between items-center text-xs p-2.5 rounded-xl bg-slate-950 border border-emerald-500/20">
               <div className="flex items-center space-x-2.5">
-                <div className="p-1.5 bg-teal-500/10 rounded-lg text-teal-400">
+                <div className="p-1.5 bg-emerald-500/10 rounded-lg text-electricEmerald">
                   <ArrowUpRight className="h-3.5 w-3.5" />
                 </div>
                 <div>
-                  <p className="font-semibold text-white">Atomic Transaction Safety</p>
-                  <span className="text-[10px] text-slate-400">MongoDB $inc & $addToSet</span>
+                  <p className="font-mono text-xs font-bold text-white">Atomic Transaction</p>
+                  <span className="text-[10px] font-mono text-slate-400">MongoDB $inc & $addToSet</span>
                 </div>
               </div>
-              <span className="font-bold text-teal-400">Verified</span>
+              <span className="font-mono text-xs font-bold text-electricEmerald">VERIFIED</span>
             </div>
 
-            <div className="flex justify-between items-center text-xs p-2.5 rounded-xl bg-slate-900/40 border border-slate-800/60">
+            <div className="flex justify-between items-center text-xs p-2.5 rounded-xl bg-slate-950 border border-emerald-500/20">
               <div className="flex items-center space-x-2.5">
-                <div className="p-1.5 bg-purple-500/10 rounded-lg text-purple-400">
+                <div className="p-1.5 bg-cyan-500/10 rounded-lg text-cyberCyan">
                   <Brain className="h-3.5 w-3.5" />
                 </div>
                 <div>
-                  <p className="font-semibold text-white">Gemini 1.5 Flash Pipeline</p>
-                  <span className="text-[10px] text-slate-400">LLM Sentiment Summaries</span>
+                  <p className="font-mono text-xs font-bold text-white">Gemini LLM Pipeline</p>
+                  <span className="text-[10px] font-mono text-slate-400">LLM Sentiment Summaries</span>
                 </div>
               </div>
-              <span className="font-bold text-purple-400">Active</span>
+              <span className="font-mono text-xs font-bold text-cyberCyan">ACTIVE</span>
             </div>
           </div>
 
         </div>
       </div>
 
-      {/* Main Active Polls Feed Header */}
+      {/* Main Active Polls Feed */}
       <div className="pt-4">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-2">
-            <Activity className="h-5 w-5 text-purple-400" />
-            <h2 className="text-xl font-extrabold text-white tracking-tight">Active Public Polls</h2>
+            <Cpu className="h-5 w-5 text-electricEmerald" />
+            <h2 className="text-xl font-extrabold text-white tracking-tight font-mono">Active Poll Channels</h2>
           </div>
-          <span className="text-xs text-slate-400">{polls.length} polls active</span>
+          <span className="text-xs font-mono text-electricEmerald">{polls.length} channels online</span>
         </div>
 
         {loading ? (
           <div className="flex justify-center py-16">
-            <div className="h-10 w-10 border-4 border-purple-500/20 border-t-purple-500 rounded-full animate-spin"></div>
+            <div className="h-10 w-10 border-4 border-emerald-500/20 border-t-electricEmerald rounded-full animate-spin"></div>
           </div>
         ) : error ? (
-          <div className="glass-panel p-8 text-center text-red-400 border-red-500/20">
-            <p className="text-sm">{error}</p>
+          <div className="glass-panel p-8 text-center text-rose-400 border-rose-500/20 font-mono text-xs">
+            <p>{error}</p>
           </div>
         ) : polls.length === 0 ? (
-          <div className="glass-panel p-12 text-center border-dashed border-slate-800">
-            <Zap className="h-12 w-12 text-purple-400/50 mx-auto mb-4" />
-            <h3 className="text-lg font-bold text-white mb-2">No polls currently active</h3>
-            <p className="text-slate-400 text-sm mb-6 max-w-sm mx-auto">
-              Create the first real-time poll to test WebSockets and Gemini AI.
+          <div className="glass-panel p-12 text-center border-dashed border-emerald-500/20">
+            <Zap className="h-12 w-12 text-electricEmerald/40 mx-auto mb-4" />
+            <h3 className="text-lg font-bold text-white mb-2 font-mono">No active channels</h3>
+            <p className="text-slate-400 text-xs mb-6 max-w-sm mx-auto font-mono">
+              Create the first channel node to test WebSockets and Gemini AI.
             </p>
             {isAuthenticated() ? (
               <Link to="/create" className="glass-btn-primary inline-flex text-xs">
-                Create First Poll
+                Create Channel
               </Link>
             ) : (
               <Link to="/login" className="glass-btn-primary inline-flex text-xs">
@@ -410,37 +409,37 @@ const Dashboard = () => {
                 <Link
                   key={poll._id}
                   to={`/polls/${poll._id}`}
-                  className="glass-panel-interactive p-6 block group"
+                  className="glass-panel-interactive p-6 block group border-emerald-500/20"
                 >
                   <div className="flex justify-between items-start mb-4">
-                    <span className="text-[10px] font-extrabold tracking-wider uppercase px-2.5 py-1 bg-purple-500/10 text-purple-300 rounded-lg border border-purple-500/20 flex items-center gap-1">
+                    <span className="text-[9px] font-mono font-extrabold tracking-wider uppercase px-2.5 py-1 bg-emerald-500/10 text-electricEmerald rounded-lg border border-emerald-500/30 flex items-center gap-1.5">
                       <span className="glow-dot-emerald"></span>
-                      Active Channel
+                      ACTIVE CHANNEL
                     </span>
-                    <span className="text-xs text-slate-500 font-medium">
+                    <span className="text-xs font-mono text-slate-400 font-medium">
                       {poll.createdBy?.name || 'Alex Rivera'}
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-bold text-white mb-4 line-clamp-2 group-hover:text-purple-300 transition-colors">
+                  <h3 className="text-base sm:text-lg font-bold text-white mb-4 line-clamp-2 group-hover:text-electricEmerald transition-colors">
                     {poll.question}
                   </h3>
 
-                  <div className="flex items-center justify-between text-xs text-slate-400 border-t border-slate-800/80 pt-4 mt-auto">
-                    <div className="flex items-center space-x-1.5">
-                      <Users className="h-4 w-4 text-slate-500" />
-                      <span className="font-semibold text-slate-300">{votesTotal} votes</span>
+                  <div className="flex items-center justify-between text-xs text-slate-400 border-t border-emerald-500/15 pt-4 mt-auto">
+                    <div className="flex items-center space-x-1.5 font-mono text-xs">
+                      <Users className="h-4 w-4 text-electricEmerald" />
+                      <span className="font-bold text-slate-200">{votesTotal} votes</span>
                     </div>
 
                     {poll.aiAnalysis?.summary ? (
-                      <div className="flex items-center space-x-1 text-teal-400 bg-teal-400/10 border border-teal-400/20 px-2.5 py-1 rounded-lg text-[11px] font-semibold">
+                      <div className="flex items-center space-x-1.5 text-electricEmerald bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold">
                         <span>{poll.aiAnalysis.emoji}</span>
-                        <span>AI Ready</span>
+                        <span>AI READY</span>
                       </div>
                     ) : (
-                      <div className="flex items-center space-x-1 text-slate-400 group-hover:text-purple-400 font-semibold transition-colors">
-                        <span>View Poll</span>
-                        <ChevronRight className="h-3.5 w-3.5" />
+                      <div className="flex items-center space-x-1 text-slate-400 group-hover:text-electricEmerald font-mono font-bold transition-colors text-xs">
+                        <span>ENTER CHANNEL</span>
+                        <ChevronRight className="h-3.5 w-3.5 text-electricEmerald" />
                       </div>
                     )}
                   </div>
