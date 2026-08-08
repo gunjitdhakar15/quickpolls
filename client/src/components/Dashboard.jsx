@@ -42,6 +42,8 @@ ChartJS.register(
   Filler
 );
 
+// Dashboard 
+
 const Dashboard = () => {
   const currentUser = getUser();
   const { theme } = useTheme();
