@@ -1,5 +1,5 @@
 # QuickPolls⚡
-**A high-concurrency, real-time voting engine engineered with atomic database operations, live WebSocket synchronization, interactive visualization, and automated Gemini AI insights.**
+**A high-concurrency, real-time voting engine engineered with atomic database operations, live WebSocket synchronization, interactive visualization, and automated GPT-3.5 AI insights.**
 
 ## 🚀 Key Technical Highlights (Resume & Interview Assets)
 
@@ -9,8 +9,8 @@
 2. **Race Condition Prevention & Atomic Database Operations:**
    * Engineered thread-safe `/vote` transaction handling using MongoDB's atomic operators (`$inc` and `$addToSet`) in a single `findOneAndUpdate` execution block.
    * Guarantees 100% data consistency and strict one-vote-per-user enforcement even during severe parallel vote bursts.
-3. **Automated AI Insights (Google Gemini AI):**
-   * Integrated Google Gemini AI API (`gemini-1.5-flash`) to process and summarize incoming vote data, classifying semantic voter sentiment and caching results.
+3. **Automated AI Insights (OpenAI GPT-3.5):**
+   * Integrated OpenAI GPT-3.5-turbo API to process and summarize incoming vote data, classifying semantic voter sentiment and caching results.
    * Utilizes background asynchronous execution to keep HTTP response times ultra-low while performing LLM text operations.
 4. **Data Visualization (Chart.js & TailwindCSS):**
    * Implemented responsive animated bar graphs using Chart.js to render results dynamically.
@@ -27,7 +27,7 @@ QuickPolls is a full-stack application designed to handle voting sessions with s
 
 * **Frontend:** React (Vite SPA) | TailwindCSS | Chart.js / React-Chartjs-2 | Socket.io-Client
 * **Backend:** Node.js | Express.js | Socket.io | Mongoose (MongoDB)
-* **AI Engine:** Google AI Studio SDK (`@google/generative-ai`)
+* **AI Engine:** OpenAI SDK (`openai`) — GPT-3.5-turbo
 * **Security:** JWT (JSON Web Tokens) Authorization | Bcryptjs Hashing
 
 ---
@@ -41,14 +41,14 @@ quickpolls/
 │   ├── middleware/         # auth.js (JWT Validation)
 │   ├── models/             # Mongoose Schemas (User, Poll)
 │   ├── routes/             # Route configurations
-│   ├── services/           # aiService.js (Gemini AI API)
+│   ├── services/           # aiService.js (OpenAI GPT-3.5 API)
 │   ├── scripts/            # testConcurrency.js (Simulated concurrency tests)
 │   └── socket.js           # Socket.io Room connection manager
 └── client/                 # React Frontend (Vite)
     ├── src/
-    │   ├── components/     # UI Views (Dashboard, PollDetail, Navbar, Chart)
-    │   ├── services/       # api.js (Axios Client Wrapper)
-    │   └── utils/          # auth.js (Session Storage Utilities)
+        ├── components/     # UI Views (Dashboard, PollDetail, Navbar, Chart)
+        ├── services/       # api.js (Axios Client Wrapper)
+        └── utils/          # auth.js (Session Storage Utilities)
 ```
 
 ---
@@ -62,7 +62,7 @@ cp .env.example .env
 ```
 Fill in the following variables inside `server/.env`:
 * `DB_URI`: Your MongoDB Atlas connection string (or local string: `mongodb://localhost:27017/quickpolls`).
-* `GEMINI_API_KEY`: Your Google AI Studio API Key (Get a free key [here](https://aistudio.google.com/)).
+* `OPENAI_API_KEY`: Your OpenAI API Key (Get a free key [here](https://platform.openai.com/api-keys)).
 * `JWT_SECRET`: Any secure cryptographic string (for signing authorization tokens).
 
 ---
