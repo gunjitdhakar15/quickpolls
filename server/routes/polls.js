@@ -20,7 +20,7 @@ router.get('/:id', pollController.getPollById);
 router.post('/:id/vote', authMiddleware, pollController.vote);
 
 // @route   POST api/polls/:id/ai
-// @desc    Manually trigger OpenAI GPT-3.5 analysis
+// @desc    Manually trigger AI analysis
 router.post('/:id/ai', authMiddleware, pollController.triggerManualAIAnalysis);
 
 // @route   DELETE api/polls/:id

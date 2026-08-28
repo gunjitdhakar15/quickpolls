@@ -15,7 +15,7 @@
 - `[x]` Implement Real-Time Data Sync:
   - `[x]` `socket.js` helper (Socket.io room management per poll)
   - `[x]` Integrate socket updates in the voting controller to push live results
-- `[x]` Integrate OpenAI GPT-3.5 Service:
+- `[x]` Integrate Gemini AI Service:
   - `[x]` `services/aiService.js` (Interact with `@google/generative-ai` for summarization and sentiment analysis)
   - `[x]` Expose AI endpoint `/api/polls/:id/summary` with result caching
 
@@ -36,4 +36,4 @@
 ## Verification & Polishing
 - `[x]` Write integration test script `server/scripts/testConcurrency.js` to simulate 50+ simultaneous votes
 - `[x]` Perform manual testing on socket state synchronization across different tabs
-- `[x]` Verify OpenAI GPT-3.5 summaries function correctly
+- `[x]` Verify Gemini question and answer analysis functions correctly

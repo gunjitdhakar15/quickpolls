@@ -249,7 +249,7 @@ const PollDetail = () => {
                 <Brain className="h-4 w-4" />
               </div>
               <div>
-                <h2 className="text-sm font-bold text-slate-900 dark:text-white">OpenAI GPT-3.5 Insights</h2>
+                <h2 className="text-sm font-bold text-slate-900 dark:text-white">AI Insights</h2>
                 <p className="text-[10px] text-slate-500 dark:text-slate-400">Live analysis of this poll's results</p>
               </div>
             </div>
@@ -280,7 +280,7 @@ const PollDetail = () => {
             ) : (
               <div className="text-center py-4">
                 <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">
-                  Analyze voter distribution and sentiment with OpenAI GPT-3.5.
+                  Analyze the poll question, answer choices, and voter sentiment.
                 </p>
                 <button
                   onClick={triggerAIAnalysis}

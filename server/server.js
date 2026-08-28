@@ -43,8 +43,7 @@ app.get('/api/health', (req, res) => {
     status: 'OK', 
     timestamp: new Date(), 
     uptime: process.uptime(),
-    aiConfigured: !!process.env.OPENAI_API_KEY,
-    aiModel: process.env.OPENAI_MODEL || 'gpt-3.5-turbo'
+    aiConfigured: !!process.env.GEMINI_API_KEY
   });
 });
 

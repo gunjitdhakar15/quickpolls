@@ -42,7 +42,7 @@ function App() {
 
           <footer className="border-t border-slate-200 dark:border-slate-800/80 py-5 text-center text-xs text-slate-500 bg-white dark:bg-slate-900/50">
             <div className="max-w-7xl mx-auto px-4">
-              <p>© {new Date().getFullYear()} QuickPolls. Built with React, TailwindCSS, WebSockets, and OpenAI GPT-3.5.</p>
+              <p>© {new Date().getFullYear()} QuickPolls. Built with React, TailwindCSS, WebSockets, and AI insights.</p>
             </div>
           </footer>
         </div>
