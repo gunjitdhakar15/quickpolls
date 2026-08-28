@@ -261,7 +261,7 @@ const Dashboard = () => {
             <div className="flex items-center space-x-4 text-[11px]">
               <div>
                 <span className="block text-[9px] uppercase tracking-wider text-white/60">AI MODEL</span>
-                <span className="font-semibold text-white">Gemini 1.5 Flash</span>
+                <span className="font-semibold text-white">OpenAI GPT-3.5</span>
               </div>
               <div>
                 <span className="block text-[9px] uppercase tracking-wider text-white/60">STORAGE</span>
@@ -354,7 +354,7 @@ const Dashboard = () => {
                 </div>
                 <div>
                   <p className="font-semibold text-slate-900 dark:text-white text-[11px]">AI Sentiment Analysis</p>
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400">Gemini LLM pipeline</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400">OpenAI LLM pipeline</span>
                 </div>
               </div>
               <span className="font-bold text-purple-600 dark:text-purple-400 text-xs">Cached</span>

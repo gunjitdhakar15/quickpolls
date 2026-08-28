@@ -62,7 +62,7 @@ cp .env.example .env
 ```
 Fill in the following variables inside `server/.env`:
 * `DB_URI`: Your MongoDB Atlas connection string (or local string: `mongodb://localhost:27017/quickpolls`).
-* `OPENAI_API_KEY`: Your OpenAI API Key (Get a free key [here](https://platform.openai.com/api-keys)).
+* `OPENAI_API_KEY`: Your OpenAI API key with available API quota.
 * `JWT_SECRET`: Any secure cryptographic string (for signing authorization tokens).
 
 ---

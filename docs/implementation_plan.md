@@ -1,6 +1,6 @@
 # QuickPolls: Production-Grade Real-Time Voting Engine
 
-We are building a secure, high-integrity, real-time polling application from scratch. The system is designed to handle high concurrency with zero race conditions, provide live updates across clients, render mobile-friendly analytics, and leverage Gemini AI to summarize text responses and sentiment.
+We are building a secure, high-integrity, real-time polling application from scratch. The system is designed to handle high concurrency with zero race conditions, provide live updates across clients, render mobile-friendly analytics, and leverage OpenAI GPT-3.5 to summarize text responses and sentiment.
 
 ---
 
@@ -8,7 +8,7 @@ We are building a secure, high-integrity, real-time polling application from scr
 
 > [!IMPORTANT]
 > **API Keys & DB Configuration:**
-> You will need to provide a MongoDB connection string (local or MongoDB Atlas) and an API Key (Google Gemini API Key or OpenAI API Key) in the `.env` file once the backend structure is ready. We will default to the **Google Gemini API** as it is highly efficient and standard for modern AI features.
+> You will need to provide a MongoDB connection string (local or MongoDB Atlas) and an OpenAI API key in the `.env` file once the backend structure is ready. The configured model defaults to **GPT-3.5 Turbo**.
 
 ---
 
@@ -16,7 +16,7 @@ We are building a secure, high-integrity, real-time polling application from scr
 
 > [!NOTE]
 > 1. **MongoDB Instance:** Do you have local MongoDB running (`mongodb://localhost:27017`) or would you prefer to use a MongoDB Atlas connection string?
-> 2. **AI Provider:** We will implement Gemini AI by default using the official `@google/generative-ai` package. If you prefer OpenAI (GPT-3.5/4), let me know so we can adjust the SDK and model configuration.
+> 2. **AI Provider:** OpenAI GPT-3.5 Turbo is configured through the official `openai` package and `OPENAI_API_KEY`.
 
 ---
 
@@ -79,7 +79,7 @@ const updatedPoll = await Poll.findOneAndUpdate(
 If `updatedPoll` is null, it means the user already voted or the poll doesn't exist, preventing double voting and race conditions atomically. It then triggers Socket.io to broadcast the update.
 
 #### [NEW] [aiService.js](file:///e:/Coding/%5B01%5D%20Projects/%5B01%5DResume%20projects/quickpolls/server/services/aiService.js)
-Service linking the Gemini API. Uses the model to process poll questions/results and provide:
+Service linking the OpenAI API. Uses the model to process poll questions/results and provide:
 - A clear summary.
 - Voter sentiment.
 
@@ -123,4 +123,4 @@ Connects to the websocket room for the poll, registers user votes, shows the dyn
 - Launch both the backend and client servers.
 - Open two different browser tabs (one in incognito, one normal) and place them side-by-side.
 - Cast a vote in one tab, and verify that the other tab immediately reflects the updated counts and animation without page refresh.
-- Trigger the "Generate AI Insight" button and verify that the Gemini API responds with a correct summary.
+- Trigger the "Generate AI Insight" button and verify that OpenAI responds with a correct summary.

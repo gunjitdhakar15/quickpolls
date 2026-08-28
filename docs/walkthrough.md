@@ -41,4 +41,4 @@ To run the automated concurrency test:
 1. Ensure both the `server` and `client` are running (`npm run dev`).
 2. Register an account, create a poll, and open that poll in two side-by-side tabs.
 3. Place a vote in Tab A, and watch Tab B's charts and percentages update automatically via websockets!
-4. Click **Generate AI Insights** to call the Gemini API and fetch the sentiment summary.
+4. Click **Generate AI Insights** to call OpenAI GPT-3.5 and fetch the sentiment summary.

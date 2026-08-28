@@ -1,7 +1,7 @@
 {
   "name": "quickpolls-server",
   "version": "1.0.0",
-  "description": "Production-grade backend voting engine using WebSockets, MongoDB, and Gemini AI.",
+  "description": "Production-grade backend voting engine using WebSockets, MongoDB, and OpenAI GPT-3.5.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

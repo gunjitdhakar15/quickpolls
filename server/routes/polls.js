@@ -20,7 +20,7 @@ router.get('/:id', pollController.getPollById);
 router.post('/:id/vote', authMiddleware, pollController.vote);
 
 // @route   POST api/polls/:id/ai
-// @desc    Manually trigger Gemini AI analysis
+// @desc    Manually trigger OpenAI GPT-3.5 analysis
 router.post('/:id/ai', authMiddleware, pollController.triggerManualAIAnalysis);
 
 // @route   DELETE api/polls/:id

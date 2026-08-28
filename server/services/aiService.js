@@ -17,7 +17,7 @@ function getAIInstance() {
 }
 
 /**
- * Summarizes the poll results and extracts sentiment using GPT-3.5-turbo.
+ * Summarizes the poll results and extracts sentiment using the configured OpenAI model.
  * Falls back gracefully if API fails or is not configured.
  */
 async function generatePollInsight(question, options) {
@@ -42,7 +42,7 @@ Provide:
 Return the result strictly as a valid JSON object with the keys "summary", "sentiment", and "emoji". Do not wrap the JSON in markdown formatting, backticks, or any conversational text.`;
 
     const completion = await instance.chat.completions.create({
-      model: 'gpt-3.5-turbo',
+      model: process.env.OPENAI_MODEL || 'gpt-3.5-turbo',
       messages: [
         { role: 'system', content: 'You are a real-time polling data analyst. Respond only with valid JSON.' },
         { role: 'user', content: prompt }
